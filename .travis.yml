@@ -6,7 +6,27 @@ python:
 install:
   - pip install -r requirements.txt
 
+
+sudo: required
+services:
+  - postgresql
+#addons:
+#  postgresql: "9.6"
+
+before_script:
+  - psql -c 'create database bookstore;' -U postgres
 # Run the unit test
 script:
-  - export PATHONPATH=`pwd`
+  #- export PATHONPATH=`pwd`
+  - export PYTHONPATH=$PYTHONPATH:$(pwd)
+  - python init_database.py
   - coverage run --timid --branch --source fe,be --concurrency=thread -m pytest -v --ignore=fe/data
+env:
+  global:
+  - PGPORT=5432
+# Push the results back to codecov
+after_success:
+  - coverage combine
+  - coverage report
+  - codecov
+  - bash <(curl -s https://codecov.io/bash)
