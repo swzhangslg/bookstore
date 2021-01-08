@@ -1,6 +1,6 @@
 # bookstore
 
-大作业冲冲冲
+[![Build Status](https://travis-ci.com/swzhangslg/bookstore.svg?branch=master)](https://travis-ci.com/swzhangslg/bookstore)[![codecov](https://codecov.io/gh/swzhangslg/bookstore/branch/master/graph/badge.svg?token=IF9UST4dK6)](https://codecov.io/gh/swzhangslg/bookstore)
 
 在init_database.py和be/db_conn.py两个文件中改连接数据库的密码
 
