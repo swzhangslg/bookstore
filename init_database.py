@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Integer, ForeignKey, create_engine, PrimaryKeyConstraint, Text, DateTime, \
     Boolean, LargeBinary
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime, time
+from datetime import datetime
 
 Base = declarative_base()
 engine = create_engine('postgresql://postgres:111111@localhost:5432/bookstore')
@@ -65,7 +65,7 @@ class Order(Base):
     store_id = Column(String(128), ForeignKey('store.store_id'), nullable=False)
     paytime = Column(DateTime, nullable=True)
     status = Column(Integer(), nullable=True)  # 0为已付款，1为已发货，2为已收货, 3为已下单未付款
-# 0为已付款，1为已发货，2为已收货, 3为已下单未付款,4为交易关闭
+
 
 # 订单详情————同一家所有不同商品归为一个order
 class Order_detail(Base):
@@ -75,24 +75,76 @@ class Order_detail(Base):
     count = Column(Integer, nullable=False)
 
 
-def user_id_exist(user_id):
-    cursor = session.query(User).filter(User.user_id == user_id).first()
-    if (cursor is None):
-        return False
-    else:
-        return True
+def init_db():
+    Base.metadata.create_all(engine)
 
-# 查询书店是否有某类书
-def book_id_exist(store_id, book_id):
-    cursor = session.query(Store_detail).filter(Store_detail.store_id == store_id, Store_detail.book_id == book_id).first()
-    if (cursor is None):
-        return False
-    else:
-        return True
 
-def store_id_exist(store_id):
-    cursor = session.query(Store).filter(Store.store_id == store_id).first()
-    if (cursor is None):
-        return False
-    else:
-        return True
+def drop_db():
+    Base.metadata.drop_all(engine)
+
+
+def add_info():
+    A = User(user_id='王掌柜',
+             password='123456',
+             balance=100,
+             token='***',
+             terminal='Edge')
+    B = User(user_id='小明',
+             password='123456',
+             balance=500,
+             token='***',
+             terminal='Chrome')
+    session.add_all([A, B])
+    session.commit()
+
+    A_Store1 = Store(user_id='王掌柜',
+                     store_id='王掌柜的书店')
+    A_Store2 = Store(user_id='王掌柜',
+                     store_id='王掌柜的进口书店')
+    Book1 = Book(book_id='1000067',
+                 title='数据结构')
+    Book2 = Book(book_id='1000134',
+                 title='PRML')
+    session.add_all([A_Store1, A_Store2, Book1, Book2])
+    session.commit()
+
+    StoreA = Store_detail(store_id='王掌柜的书店',
+                          book_id='1000067',
+                          stock_level=10,
+                          price=1000)  # 价格单位是分
+    StoreB = Store_detail(store_id='王掌柜的书店',
+                          book_id='1000134',
+                          stock_level=10,
+                          price=10000)
+    session.add_all([StoreA, StoreB])
+    session.commit()
+
+    # OrderA = Order(order_id='order1',
+    #                user_id='小明',
+    #                store_id='王掌柜的书店',
+    #                paytime=datetime.now(),
+    #                status=0)
+    # OrderB = Order(order_id='order2',
+    #                user_id='小明',
+    #                store_id='王掌柜的进口书店',
+    #                paytime=datetime.now(),
+    #                status=3)
+    # session.add_all([OrderA, OrderB])
+    # session.commit()
+
+    # Order_detailA = Order_detail(order_id='order1',
+    #                              book_id='1',
+    #                              count=2)
+    # Order_detailB = Order_detail(order_id='order2',
+    #                              book_id='2',
+    #                              count=1)
+    # session.add_all([Order_detailA, Order_detailB])
+    # session.commit()
+    # 关闭session
+    session.close()
+
+
+if __name__ == "__main__":
+    drop_db()
+    init_db()
+    add_info()

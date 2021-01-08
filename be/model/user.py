@@ -2,10 +2,12 @@ import jwt
 import logging
 import sqlite3 as sqlite
 import time
+
+import sqlalchemy
+
 from be.model import error
 
-from sqlalchemy import create_engine
-from be.db_conn import session,User
+from be.db_conn import session, User
 
 
 # encode a json string like:
@@ -39,11 +41,15 @@ def jwt_decode(encoded_token, user_id: str) -> str:
 class Player():
     token_lifetime: int = 3600  # 3600 second
 
-
     def __check_token(self, user_id, db_token, token) -> bool:
         try:
-            if db_token != token:
+            print('db_token:',db_token)
+            print(token)
+            hex_str=r"\x"+bytes(token,encoding='utf-8').hex()
+            print('hex_str:',hex_str)
+            if db_token != token and db_token != hex_str:
                 return False
+            print('aaa')
             jwt_text = jwt_decode(encoded_token=token, user_id=user_id)
             ts = jwt_text["timestamp"]
             if ts is not None:
@@ -58,16 +64,20 @@ class Player():
         try:
             terminal = "terminal_{}".format(str(time.time()))
             token = jwt_encode(user_id, terminal)
+            # print("xxx"+str(token))
             user_one = User(
                 user_id=user_id,
                 password=password,
                 balance=0,
-                token=token,
+                token= token,
                 terminal=terminal
             )
             session.add(user_one)
             session.commit()
-        except sqlite.Error:
+        # except sqlite.Error:
+        # return error.error_exist_user_id(user_id)
+        # return 200, "ok"
+        except sqlalchemy.exc.IntegrityError:
             return error.error_exist_user_id(user_id)
         return 200, "ok"
 
@@ -76,6 +86,7 @@ class Player():
         if cursor is None:
             return error.error_authorization_fail()
         db_token = cursor.token
+        print('sss')
         if not self.__check_token(user_id, db_token, token):
             return error.error_authorization_fail()
         return 200, "ok"
@@ -92,21 +103,27 @@ class Player():
 
     def login(self, user_id: str, password: str, terminal: str) -> (int, str, str):
         token = ""
-        try:
-            code, message = self.check_password(user_id, password)
-            if code != 200:
-                return code, message, ""
-            token = jwt_encode(user_id, terminal)
-            cursor = session.query(User).filter(User.user_id == user_id).first()
-            cursor.token = token
-            cursor.terminal = terminal
-            session.commit()
-            if cursor is None:
-                return error.error_authorization_fail() + ("",)
-        except sqlite.Error as e:
-            return 528, "{}".format(str(e)), ""
-        except BaseException as e:
-            return 530, "{}".format(str(e)), ""
+        code, message = self.check_password(user_id, password)
+        if code != 200:
+            return code, message, ""
+        token = jwt_encode(user_id, terminal)
+        #token="1.1.1"
+        #print("123"+str(token))
+        cursor = session.query(User).filter(User.user_id == user_id).first()
+        cursor.token = token
+        cursor.terminal = terminal
+        session.commit()
+        # cursor = self.conn.execute(
+        #     "UPDATE user set token= ? , terminal = ? where user_id = ?",
+        #     (token, terminal, user_id), )
+        # if cursor is None:
+        #     return error.error_authorization_fail() + ("",)
+        # self.conn.commit()
+        # except sqlite.Error as e:
+        #     return 200, "ok"
+        # return 528, "{}".format(str(e)), ""
+        # except BaseException as e:
+        #     return 530, "{}".format(str(e)), ""
         return 200, "ok", token
 
     def logout(self, user_id: str, token: str) -> bool:
@@ -121,50 +138,42 @@ class Player():
             cursor.token = dummy_token
             cursor.terminal = terminal
             session.commit()
-            if cursor is None:
-                return error.error_authorization_fail()
-
-        except sqlite.Error as e:
-            return 528, "{}".format(str(e))
-        except BaseException as e:
-            return 530, "{}".format(str(e))
-        return 200, "ok"
+            # except sqlite.Error as e:
+            # return 528, "{}".format(str(e))
+            # return 200, "ok"
+            # except BaseException as e:
+            #     return 530, "{}".format(str(e))
+            return 200, "ok"
+        except sqlalchemy.exc.IntegrityError:
+            return error.error_authorization_fail()
 
     def unregister(self, user_id: str, password: str) -> (int, str):
-        try:
-            code, message = self.check_password(user_id, password)
-            if code != 200:
-                return code, message
-            cursor = session.query(User).filter(User.user_id == user_id).first()
-            session.delete(cursor)
-            if cursor is not None:
-                session.commit()
-            else:
-                return error.error_authorization_fail()
-        except sqlite.Error as e:
-            return 528, "{}".format(str(e))
-        except BaseException as e:
-            return 530, "{}".format(str(e))
+        code, message = self.check_password(user_id, password)
+        if code != 200:
+            return code, message
+        cursor = session.query(User).filter(User.user_id == user_id).first()
+        # self.session.delete(cursor)
+        # cursor = self.conn.execute("DELETE from user where user_id=?", (user_id,))
+        session.delete(cursor)
+        session.commit()
+        # return 528, "{}".format(str(e))
+        # except BaseException as e:
+        #     return 530, "{}".format(str(e))
         return 200, "ok"
 
     def change_password(self, user_id: str, old_password: str, new_password: str) -> bool:
-        try:
-            code, message = self.check_password(user_id, old_password)
-            if code != 200:
-                return code, message
+        code, message = self.check_password(user_id, old_password)
+        if code != 200:
+            return code, message
 
-            terminal = "terminal_{}".format(str(time.time()))
-            token = jwt_encode(user_id, terminal)
-            cursor = session.query(User).filter(User.user_id == user_id).first()
-            cursor.password = new_password
-            cursor.token = token
-            cursor.terminal = terminal
-            session.commit()
-            if cursor is None:
-                return error.error_authorization_fail()
-
-        except sqlite.Error as e:
-            return 528, "{}".format(str(e))
-        except BaseException as e:
-            return 530, "{}".format(str(e))
+        terminal = "terminal_{}".format(str(time.time()))
+        token = jwt_encode(user_id, terminal)
+        cursor = session.query(User).filter(User.user_id == user_id).first()
+        cursor.password = new_password
+        cursor.token = token
+        cursor.terminal = terminal
+        session.commit()
+        # cursor = self.conn.execute(
+        #     "UPDATE user set password = ?, token= ? , terminal = ? where user_id = ?",
+        #     (new_password, token, terminal, user_id), )
         return 200, "ok"
