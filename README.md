@@ -14,5 +14,11 @@ coverage run -m pytest
 coverage report
 ```
 
+测试：
+
+```
+bash script/test.sh
+```
+
 
 
