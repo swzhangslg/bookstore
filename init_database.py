@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 
 Base = declarative_base()
-engine = create_engine('postgresql://postgres:111111@localhost:5432/bookstore')
+engine = create_engine('postgresql://postgres:duhanyue123@localhost:5432/Bookstore')
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
@@ -64,7 +64,15 @@ class Order(Base):
     user_id = Column(String(128), ForeignKey('user.user_id'), nullable=False)
     store_id = Column(String(128), ForeignKey('store.store_id'), nullable=False)
     paytime = Column(DateTime, nullable=True)
-    status = Column(Integer(), nullable=True)  # 0为已付款，1为已发货，2为已收货, 3为已下单未付款
+    status = Column(Integer(), nullable=True)  # 0为已付款，1为已发货，2为已收货, 4为已取消
+
+
+class Order_to_Pay(Base):
+    __tablename__ = 'order_to_pay'
+    order_id = Column(String(1280), primary_key=True)
+    user_id = Column(String(128), ForeignKey('user.user_id'), nullable=False)
+    store_id = Column(String(128), ForeignKey('store.store_id'), nullable=False)
+    paytime = Column(DateTime, nullable=True)
 
 
 # 订单详情————同一家所有不同商品归为一个order
@@ -140,6 +148,7 @@ def add_info():
     #                              count=1)
     # session.add_all([Order_detailA, Order_detailB])
     # session.commit()
+
     # 关闭session
     session.close()
 

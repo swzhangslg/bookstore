@@ -20,6 +20,7 @@ error_code = {
     528: "",
     531: "order has been paid, order id {}",
     532: "order closed, order id {}",
+    533: "order can not be closed, order id{}, please contact with the seller.",
 }
 
 
@@ -62,8 +63,14 @@ def error_not_sufficient_funds(order_id):
 def error_order_has_been_paid(order_id):
     return 531, error_code[531].format(order_id)
 
+
 def error_order_closed(order_id):
     return 532, error_code[532].format(order_id)
+
+
+def error_order_can_not_be_closed(order_id):
+    return 533, error_code[533].format(order_id)
+
 
 def error_authorization_fail():
     return 401, error_code[401]
