@@ -177,3 +177,193 @@ class Player():
         #     "UPDATE user set password = ?, token= ? , terminal = ? where user_id = ?",
         #     (new_password, token, terminal, user_id), )
         return 200, "ok"
+
+
+    def search_author(self, author: str) -> (int, [dict]):  # 200,'ok',list[{str,str,str,str,list,bytes}]
+        ret = []
+        records = session.execute(
+            "SELECT title,author,publisher,book_intro,tags "
+            "FROM book_search WHERE book_id in "
+            "(select book_id from search_author where author='%s')" % (
+                author)).fetchall()
+        if len(records) != 0:
+            for i in range(len(records)):
+                record = records[i]
+                title = record[0]
+                author_ = record[1]
+                publisher = record[2]
+                book_intro = record[3]
+                tags = record[4]
+                ret.append(
+                    {'title': title, 'author': author_, 'publisher': publisher,
+                     'book_intro': book_intro,
+                     'tags': tags})
+            return 200, ret
+        else:
+            return 200, []
+
+    def search_book_intro(self, book_intro: str) -> (int, [dict]):
+        ret = []
+        records = session.execute(
+            "SELECT title,author,publisher,book_intro,tags "
+            "FROM book_search WHERE book_id in "
+            "(select book_id from search_book_intro where book_intro='%s')" % (
+                book_intro)).fetchall()  # 约对"小说"约0.09s
+        if len(records) != 0:
+            for i in range(len(records)):
+                record = records[i]
+                title = record[0]
+                author = record[1]
+                publisher = record[2]
+                book_intro_ = record[3]
+                tags = record[4]
+                ret.append(
+                    {'title': title, 'author': author, 'publisher': publisher,
+                     'book_intro': book_intro_,
+                     'tags': tags})
+            return 200, ret
+        else:
+            return 200, []
+
+    def search_tags(self, tags: str) -> (int, [dict]):
+        ret = []
+        records = session.execute(
+            "SELECT title,author,publisher,book_intro,tags "
+            "FROM book_search WHERE book_id in "
+            "(select book_id from search_tags where tags='%s')" % (
+                tags)).fetchall()
+        if len(records) != 0:
+            for i in range(len(records)):
+                record = records[i]
+                title = record[0]
+                author = record[1]
+                publisher = record[2]
+                book_intro = record[3]
+                tags_ = record[4]
+                ret.append(
+                    {'title': title, 'author': author, 'publisher': publisher,
+                     'book_intro': book_intro,
+                     'tags': tags_})
+            return 200, ret
+        else:
+            return 200, []
+
+    def search_title(self, title: str) -> (int, [dict]):
+        ret = []
+        records = session.execute(
+            "SELECT title,author,publisher,book_intro,tags "
+            "FROM book_search WHERE book_id in "
+            "(select book_id from search_title where title='%s')" % (
+                title)).fetchall()
+        if len(records) != 0:
+            for i in range(len(records)):
+                record = records[i]
+                title_ = record[0]
+                author = record[1]
+                publisher = record[2]
+                book_intro = record[3]
+                tags = record[4]
+                ret.append(
+                    {'title': title_, 'author': author, 'publisher': publisher,
+                     'book_intro': book_intro,
+                     'tags': tags})
+            return 200, ret
+        else:
+            return 200, []
+
+    def search_author_in_store(self, author: str, store_id: str) -> (int, [dict]):
+        ret = []
+        records = session.execute(
+            "SELECT title,book.author,publisher,book_intro,tags "
+            "FROM book WHERE book_id in "
+            "(select book_id from search_author where author='%s') and "
+            "book_id in (select book_id from store_detail where store_id='%s')"
+            % (author, store_id)).fetchall()
+        if len(records) != 0:
+            for i in range(len(records)):
+                record = records[i]
+                title = record[0]
+                author_ = record[1]
+                publisher = record[2]
+                book_intro = record[3]
+                tags = record[4]
+                ret.append(
+                    {'title': title, 'author': author_, 'publisher': publisher,
+                     'book_intro': book_intro,
+                     'tags': tags})
+            return 200, ret
+        else:
+            return 200, []
+
+    def search_book_intro_in_store(self, book_intro: str, store_id: str) -> (int, [dict]):
+        ret = []
+        records = session.execute(
+            "SELECT title,author,publisher,book.book_intro,tags "
+            "FROM book WHERE book_id in "
+            "(select book_id from search_book_intro where book_intro='%s') and "
+            "book_id in (select book_id from store_detail where store_id='%s')"
+            % (book_intro, store_id)).fetchall()
+        if len(records) != 0:
+            for i in range(len(records)):
+                record = records[i]
+                title = record[0]
+                author = record[1]
+                publisher = record[2]
+                book_intro_ = record[3]
+                tags = record[4]
+                ret.append(
+                    {'title': title, 'author': author, 'publisher': publisher,
+                     'book_intro': book_intro_,
+                     'tags': tags})
+            return 200, ret
+        else:
+            return 200, []
+
+    def search_tags_in_store(self, tags: str, store_id: str) -> (int, [dict]):
+        ret = []
+        records = session.execute(
+            "SELECT title,author,publisher,book_intro,book.tags "
+            "FROM book WHERE book_id in "
+            "(select book_id from search_tags where tags='%s') and "
+            "book_id in (select book_id from store_detail where store_id='%s')"
+            % (tags, store_id)).fetchall()
+        if len(records) != 0:
+            for i in range(len(records)):
+                record = records[i]
+                title = record[0]
+                author = record[1]
+                publisher = record[2]
+                book_intro = record[3]
+                tags_ = record[4]
+                ret.append(
+                    {'title': title, 'author': author, 'publisher': publisher,
+                     'book_intro': book_intro,
+                     'tags': tags_})
+            return 200, ret
+        else:
+            return 200, []
+
+    def search_title_in_store(self, title: str, store_id: str) -> (int, [dict]):
+        ret = []
+        records = session.execute(
+            "SELECT book.title,author,publisher,book_intro,tags "
+            "FROM book WHERE book_id in "
+            "(select book_id from search_title where title='%s') and "
+            "book_id in (select book_id from store_detail where store_id='%s')"
+            % (title, store_id)).fetchall()
+        if len(records) != 0:
+            for i in range(len(records)):
+                record = records[i]
+                title_ = record[0]
+                author = record[1]
+                publisher = record[2]
+                book_intro = record[3]
+                tags = record[4]
+                ret.append(
+                    {'title': title_, 'author': author, 'publisher': publisher,
+                     'book_intro': book_intro,
+                     'tags': tags})
+            return 200, ret
+        else:
+            return 200, []
+

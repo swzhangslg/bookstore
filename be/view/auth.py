@@ -9,15 +9,9 @@ bp_auth = Blueprint("auth", __name__, url_prefix="/auth")
 
 @bp_auth.route("/login", methods=["POST"])
 def login():
-    # data = request.get_data()
-    # js = json.loads(data.decode("utf-8"))
-    # user_id = js.get("user_id")
-    # password = js.get("password")
-    # terminal = js.get("terminal")
     user_id = request.json.get("user_id", "")
     password = request.json.get("password", "")
     terminal = request.json.get("terminal", "")
-    # print(user_id, password, terminal)
     u = Player()
     code, message, token = u.login(user_id=user_id, password=password, terminal=terminal)
     return jsonify({"message": message, "token": token}), code
@@ -57,4 +51,72 @@ def change_password():
     new_password = request.json.get("newPassword", "")
     u = Player()
     code, message = u.change_password(user_id=user_id, old_password=old_password, new_password=new_password)
+    return jsonify({"message": message}), code
+
+
+@bp_auth.route("/search_author", methods=["POST"])
+def search_author():
+    author = request.json.get("author", "")
+    u = Player()
+    code, message = u.search_author(author=author)
+    return jsonify({"message": message}), code
+
+
+@bp_auth.route("/search_book_intro", methods=["POST"])
+def search_book_intro():
+    book_intro = request.json.get("book_intro", "")
+    u = Player()
+    code, message = u.search_book_intro(book_intro=book_intro)
+    return jsonify({"message": message}), code
+
+
+@bp_auth.route("/search_tags", methods=["POST"])
+def search_tags():
+    tags = request.json.get("tags", "")
+    u = Player()
+    code, message = u.search_tags(tags=tags)
+    return jsonify({"message": message}), code
+
+
+@bp_auth.route("/search_title", methods=["POST"])
+def search_title():
+    title = request.json.get("title", "")
+    u = Player()
+    code, message = u.search_title(title=title)
+    return jsonify({"message": message}), code
+
+
+@bp_auth.route("/search_author_in_store", methods=["POST"])
+def search_author_in_store():
+    author = request.json.get("author", "")
+    store_id = request.json.get("store_id", "")
+    u = Player()
+    code, message = u.search_author_in_store(author=author, store_id=store_id)
+    return jsonify({"message": message}), code
+
+
+@bp_auth.route("/search_book_intro_in_store", methods=["POST"])
+def search_book_intro_in_store():
+    book_intro = request.json.get("book_intro", "")
+    store_id = request.json.get("store_id", "")
+    u = Player()
+    code, message = u.search_book_intro_in_store(book_intro=book_intro, store_id=store_id)
+    return jsonify({"message": message}), code
+
+
+@bp_auth.route("/search_tags_in_store", methods=["POST"])
+def search_tags_in_store():
+    tags = request.json.get("tags", "")
+    store_id = request.json.get("store_id", "")
+    u = Player()
+    code, message = u.search_tags_in_store(tags=tags, store_id=store_id)
+    return jsonify({"message": message}), code
+
+
+@bp_auth.route("/search_title_in_store", methods=["POST"])
+def search_title_in_store():
+    title = request.json.get("title", "")
+    store_id = request.json.get("store_id", "")
+    u = Player()
+    code, message = u.search_title_in_store(title=title, store_id=store_id)
     return jsonify({"message": message}), code
