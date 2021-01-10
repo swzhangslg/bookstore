@@ -1,6 +1,6 @@
 from be.model import error
 from be.db_conn import user_id_exist,store_id_exist,book_id_exist
-from be.db_conn import session,Store_detail,Store,Book
+from be.db_conn import session,Store_detail,Store,Book,Order
 import json
 from sqlalchemy import and_
 
@@ -59,4 +59,18 @@ class Seller():
             session.commit()
         except BaseException as e:
             return 530, "{}".format(str(e))
+        return 200, "ok"
+
+    def send_books(self,seller_id,order_id):
+        order = session.query(Order).filter(Order.order_id == order_id).first()
+        if order is None:
+            return error.error_invalid_order_id(order_id)
+        if order.status !=0:
+            return 521,'books has been sent to costumer or the order is cancelled'
+        store = session.query(Store).filter(Store.store_id == order.store_id).first()
+        # 店铺主是不是seller
+        if seller_id != store.user_id:
+            return error.error_authorization_fail()
+        order.status=1
+        session.commit()
         return 200, "ok"
