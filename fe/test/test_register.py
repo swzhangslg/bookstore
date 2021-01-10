@@ -1,4 +1,5 @@
 import time
+import uuid
 
 import pytest
 
@@ -9,8 +10,8 @@ from fe import conf
 class TestRegister:
     @pytest.fixture(autouse=True)
     def pre_run_initialization(self):
-        self.user_id = "test_register_user_{}".format(time.time())
-        self.password = "test_register_password_{}".format(time.time())
+        self.user_id = "test_register_user_{}".format(str(uuid.uuid1()))
+        self.password = "test_register_password_{}".format(str(uuid.uuid1()))
         self.auth = auth.Auth(conf.URL)
         yield
 

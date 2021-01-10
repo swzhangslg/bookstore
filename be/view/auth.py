@@ -57,32 +57,36 @@ def change_password():
 @bp_auth.route("/search_author", methods=["POST"])
 def search_author():
     author = request.json.get("author", "")
+    page = request.json.get("page", "")
     u = Player()
-    code, message = u.search_author(author=author)
+    code, message = u.search_author(author=author, page=page)
     return jsonify({"message": message}), code
 
 
 @bp_auth.route("/search_book_intro", methods=["POST"])
 def search_book_intro():
     book_intro = request.json.get("book_intro", "")
+    page = request.json.get("page", "")
     u = Player()
-    code, message = u.search_book_intro(book_intro=book_intro)
+    code, message = u.search_book_intro(book_intro=book_intro, page=page)
     return jsonify({"message": message}), code
 
 
 @bp_auth.route("/search_tags", methods=["POST"])
 def search_tags():
     tags = request.json.get("tags", "")
+    page = request.json.get("page", "")
     u = Player()
-    code, message = u.search_tags(tags=tags)
+    code, message = u.search_tags(tags=tags, page=page)
     return jsonify({"message": message}), code
 
 
 @bp_auth.route("/search_title", methods=["POST"])
 def search_title():
     title = request.json.get("title", "")
+    page = request.json.get("page", "")
     u = Player()
-    code, message = u.search_title(title=title)
+    code, message = u.search_title(title=title, page=page)
     return jsonify({"message": message}), code
 
 
@@ -90,8 +94,9 @@ def search_title():
 def search_author_in_store():
     author = request.json.get("author", "")
     store_id = request.json.get("store_id", "")
+    page = request.json.get("page", "")
     u = Player()
-    code, message = u.search_author_in_store(author=author, store_id=store_id)
+    code, message = u.search_author_in_store(author=author, store_id=store_id, page=page)
     return jsonify({"message": message}), code
 
 
@@ -99,8 +104,9 @@ def search_author_in_store():
 def search_book_intro_in_store():
     book_intro = request.json.get("book_intro", "")
     store_id = request.json.get("store_id", "")
+    page = request.json.get("page", "")
     u = Player()
-    code, message = u.search_book_intro_in_store(book_intro=book_intro, store_id=store_id)
+    code, message = u.search_book_intro_in_store(book_intro=book_intro, store_id=store_id, page=page)
     return jsonify({"message": message}), code
 
 
@@ -108,8 +114,9 @@ def search_book_intro_in_store():
 def search_tags_in_store():
     tags = request.json.get("tags", "")
     store_id = request.json.get("store_id", "")
+    page = request.json.get("page", "")
     u = Player()
-    code, message = u.search_tags_in_store(tags=tags, store_id=store_id)
+    code, message = u.search_tags_in_store(tags=tags, store_id=store_id, page=page)
     return jsonify({"message": message}), code
 
 
@@ -117,6 +124,7 @@ def search_tags_in_store():
 def search_title_in_store():
     title = request.json.get("title", "")
     store_id = request.json.get("store_id", "")
+    page = request.json.get("page", "")
     u = Player()
-    code, message = u.search_title_in_store(title=title, store_id=store_id)
+    code, message = u.search_title_in_store(title=title, store_id=store_id, page=page)
     return jsonify({"message": message}), code
