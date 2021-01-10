@@ -1,11 +1,12 @@
 import time
 import uuid
 import pytest
+
 from fe.test.gen_book_data import GenBook
 from fe.access.new_buyer import register_new_buyer
 from fe.access.book import Book
 
-class Test_send_books:
+class Test_receive_books:
     @pytest.fixture(autouse=True)
     def pre_run_initialization(self):
         self.store_id = "test_send_book_store_{}".format(str(uuid.uuid1()))
@@ -33,22 +34,24 @@ class Test_send_books:
         assert code == 200
         code=b.payment(self.order_id )
         assert code == 200
+        code = self.seller.send_books(self.seller_id, self.order_id)
+        assert code == 200
         yield
 
     def test_ok(self):
-        code = self.seller.send_books(self.seller_id,self.order_id)
+        code = self.buyer.receive_books(self.buyer_id,self.order_id)
         assert code == 200
 
-    def test_false_seller(self):
-        code = self.seller.send_books(self.seller_id+'_s',self.order_id)
+    def test_false_buyer(self):
+        code = self.buyer.receive_books(self.buyer_id+'_xs',self.order_id)
         assert code != 200
 
     def test_non_exist_order(self):
-        code = self.seller.send_books(self.seller_id,self.order_id + '_ss')
+        code = self.buyer.receive_books(self.buyer_id,self.order_id + '_sx')
         assert code != 200
 
-    def test_repeat_send_books(self):
-        code = self.seller.send_books(self.seller_id,self.order_id)
+    def test_repeat_receive_books(self):
+        code = self.buyer.receive_books(self.buyer_id,self.order_id)
         assert code == 200
-        code = self.seller.send_books(self.seller_id,self.order_id )
+        code = self.buyer.receive_books(self.buyer_id,self.order_id )
         assert code != 200

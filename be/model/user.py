@@ -65,6 +65,10 @@ class Player():
             terminal = "terminal_{}".format(str(time.time()))
             token = jwt_encode(user_id, terminal)
             # print("xxx"+str(token))
+            # print(user_id)
+            cursor = session.query(User).filter(User.user_id == user_id).first()
+            if cursor is not None:
+                return error.error_exist_user_id(user_id)
             user_one = User(
                 user_id=user_id,
                 password=password,

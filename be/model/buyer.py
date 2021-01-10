@@ -136,57 +136,17 @@ class Buyer():
         session.commit()
         return 200, "ok"
 
-    # def close_order(self, user_id: str, password: str, order_id: str) -> (int, str):
-    #     # try:
-    #     order = self.session.query(Order).filter(Order.order_id == order_id).first()
-    #     if order is None:
-    #         return error.error_invalid_order_id(order_id)
-
-    #     status = order.status
-    #     if status == 4:
-    #         return error.error_order_closed(order_id)
-    #     elif status != 3:  # 改!!!!!!!!!!!!!!!status=1,2
-    #         return error.error_order_has_been_paid(order_id)
-
-    #     # order_id = order.order_id
-    #     buyer_id = order.user_id
-    #     store_id = order.store_id
-
-    #     if buyer_id != user_id:
-    #         return error.error_authorization_fail()
-
-    #     buyer = self.session.query(User).filter(User.user_id == buyer_id).first()
-    #     if buyer is None:
-    #         return error.error_non_exist_user_id(buyer_id)
-    #     if (password != buyer.password):
-    #         return error.error_authorization_fail()
-
-    #     store = self.session.query(Store).filter(Store.store_id == store_id).first()
-    #     if store is None:
-    #         return error.error_non_exist_store_id(store_id)
-
-    #     order_detail = self.session.query(Order_detail).filter(Order_detail.order_id == order_id).all()
-    #     total_price = 0
-    #     for i in range(len(order_detail)):
-    #         book_id = order_detail[i].book_id
-    #         book = self.session.query(Store_detail).filter(Store_detail.store_id == store_id,
-    #                                                        Store_detail.book_id == book_id).first()
-    #         count = order_detail[i].count
-    #         price = book.price
-    #         total_price += price * count
-    #         book.stock_level += count  # 取消商品退回库存
-
-    #     if (status == 0):
-    #         seller_id = store.user_id
-    #         if not self.user_id_exist(seller_id):
-    #             return error.error_non_exist_user_id(seller_id)
-    #         seller = self.session.query(User).filter(User.user_id == seller_id).first()
-    #         # balance = seller.balance #???不用考虑？没钱为负，不支持其购买其他东西
-    #         # if balance < total_price:
-    #         #     return error.error_not_sufficient_funds(order_id)
-    #         seller.balance -= total_price
-    #         buyer.balance += total_price
-
-    #     order.status = 4  # 设置订单取消
-    #     self.session.commit()
-    #     return 200, "ok"
+    def receive_books(self, buyer_id, order_id):
+        order = session.query(Order).filter(Order.order_id == order_id).first()
+        if order is None:
+            return error.error_invalid_order_id(order_id)
+        if order.status ==0:
+            return 522, "book hasn't been sent to costumer"
+        if order.status ==2:
+            return 523, "book has been received"
+        # if order.status ==3: 已取消
+        if order.user_id!= buyer_id:
+            return error.error_authorization_fail()
+        order.status =2
+        session.commit()
+        return 200, "ok"
