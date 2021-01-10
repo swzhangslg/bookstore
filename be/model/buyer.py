@@ -3,13 +3,11 @@ import json
 import logging
 from datetime import datetime
 from be.db_conn import *
-# from be.db_conn import user_id_exist, store_id_exist
-# from be.db_conn import session, Order, Order_to_Pay, Store, Store_detail, Order_detail, User
 from be.model import error
+import threading
 
 
 class Buyer():
-
     def new_order(self, user_id: str, store_id: str, id_and_count: [(str, int)]) -> (int, str, str):
         order_id = ""
         if not user_id_exist(user_id):
@@ -100,7 +98,7 @@ class Buyer():
     #     return 200, "ok"
 
     def payment(self, user_id: str, password: str, order_id: str) -> (int, str):
-        order2pay = session.query(Order_to_Pay).filter(Order_to_Pay.order_id == order_id).first()  ########
+        order2pay = session.query(Order_to_Pay).filter(Order_to_Pay.order_id == order_id).first()
 
         if order2pay is None:
             return error.error_invalid_order_id(order_id)
@@ -160,7 +158,7 @@ class Buyer():
         session.commit()
         return 200, "ok"
 
-    # 检查未付款order是否超出15min
+    # 自动取消：检查未付款order是否超出15min
     def check_order(self, order_id):
         order2pay = session.query(Order_to_Pay).filter(Order_to_Pay.order_id == order_id).first()
         if order2pay is not None:
@@ -177,8 +175,10 @@ class Buyer():
                 session.add(Order(order_id=order_id, user_id=user_id, store_id=store_id, paytime=paytime, status=4))
                 session.delete(order2pay)
                 session.commit()
-                return 200, "ok"  # ?????根据test调整return信息？？？
+                return 200, "ok", "closed"
+        return 200, "ok", None
 
+    # 手动取消
     def close_order(self, user_id: str, password: str, order_id: str) -> (int, str):
         order = session.query(Order).filter(Order.order_id == order_id).first()
         order2pay = session.query(Order_to_Pay).filter(Order_to_Pay.order_id == order_id).first()
@@ -236,10 +236,89 @@ class Buyer():
             seller.balance -= total_price  # 不用考虑卖家没钱为负，直接不支持其购买其他东西
             buyer.balance += total_price
             order.status = 4  # 设置订单取消
-        elif (flag == 1):
+        elif (flag == 3):
             paytime = order2pay.paytime
             session.add(Order(order_id=order_id, user_id=buyer_id, store_id=store_id, paytime=paytime, status=4))
             session.delete(order2pay)
 
         session.commit()
         return 200, "ok"
+
+    def search_order(self, user_id: str, password: str) -> (int, str):
+        user = session.query(User).filter(User.user_id == user_id).first()
+        if user is None:
+            return error.error_authorization_fail()
+
+        if user.password != password:
+            return error.error_authorization_fail()
+
+        historys = []
+
+        # 先记录未付款订单
+        order2pay = session.query(Order_to_Pay).all()
+        if (order2pay != []):
+            for i in range(len(order2pay)):
+                order_id = order2pay[i].order_id
+                status = "未付款"
+                order_detail = session.query(Order_detail).filter(Order_detail.order_id == order_id).all()
+                details = []
+                total_price = 0
+                for j in range(len(order_detail)):
+                    book = session.query(Store_detail).filter(Store_detail.store_id == order2pay[i].store_id,
+                                                              Store_detail.book_id == order_detail[j].book_id).first()
+                    price = book.price
+                    total_price += price * order_detail[j].count
+                    detail = {"book_id": order_detail[j].book_id, "count": order_detail[j].count, "single_price": price}
+                    details.append(detail)
+                history = {"order_id": order_id, "user_id": order2pay[i].user_id, "store_id": order2pay[i].store_id,
+                           "total_price": total_price, "order_detail": details, "paytime": order2pay[i].paytime,
+                           "status": status}
+                historys.append(history)
+
+        # 再记录其它status订单
+        order = session.query(Order).order_by(Order.paytime).all()  # 按时间排列历史订单
+        if (order != []):  # len()!=0
+            for i in range(len(order)):
+                order_id = order[i].order_id
+                status = order[i].status
+                if (status == 0):
+                    status = "已付款"
+                elif (status == 1):
+                    status = "已发货"
+                elif (status == 2):
+                    status = "已收货"
+                elif (status == 4):
+                    status = "交易关闭"
+
+                order_detail = session.query(Order_detail).filter(Order_detail.order_id == order_id).all()
+                details = []
+                total_price = 0
+                for j in range(len(order_detail)):
+                    book = session.query(Store_detail).filter(Store_detail.store_id == order[i].store_id,
+                                                              Store_detail.book_id == order_detail[j].book_id).first()
+                    price = book.price
+                    total_price += price * order_detail[j].count
+                    detail = {"book_id": order_detail[j].book_id, "count": order_detail[j].count, "single_price": price}
+                    details.append(detail)
+                history = {"order_id": order_id, "user_id": order[i].user_id, "store_id": order[i].store_id,
+                           "total_price": total_price, "order_detail": details, "paytime": order[i].paytime,
+                           "status": status}
+                historys.append(history)
+
+        if (len(historys) != 0):
+            return 200, "ok", historys
+        else:
+            return 200, "ok", None
+
+
+# class Auto_Buyer(threading.Thread):
+#     def __init__(self):
+#         threading.Thread.__init__(self)
+#         self.event=threading.Event()
+#
+#     def thread(self):
+#         Buyer.check_order()
+#
+#     def run(self):
+
+

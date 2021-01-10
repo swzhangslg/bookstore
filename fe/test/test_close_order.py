@@ -7,22 +7,13 @@ from fe.access.book import Book
 import uuid
 
 
-class TestPayment:
-    seller_id: str
-    store_id: str
-    buyer_id: str
-    password: str
-    buy_book_info_list: [Book]
-    total_price: int
-    order_id: str
-    buyer: Buyer
-
+class TestCloseOrder:
     @pytest.fixture(autouse=True)
     def pre_run_initialization(self):
-        self.seller_id = "test_payment_seller_id_{}".format(str(uuid.uuid1()))
-        self.store_id = "test_payment_store_id_{}".format(str(uuid.uuid1()))
-        self.buyer_id = "test_payment_buyer_id_{}".format(str(uuid.uuid1()))
-        self.password = self.seller_id  # self.password = self.buyer_id
+        self.seller_id = "test_close_order_seller_id_{}".format(str(uuid.uuid1()))
+        self.store_id = "test_close_order_store_id_{}".format(str(uuid.uuid1()))
+        self.buyer_id = "test_close_order_buyer_id_{}".format(str(uuid.uuid1()))
+        self.password = self.buyer_id
         gen_book = GenBook(self.seller_id, self.store_id)
         ok, buy_book_id_list = gen_book.gen(non_exist_book_id=False, low_stock_level=False, max_book_count=5)
         self.buy_book_info_list = gen_book.buy_book_info_list
@@ -42,29 +33,37 @@ class TestPayment:
         yield
 
     def test_ok(self):
+        code = self.buyer.close_order(self.order_id)
+        assert code == 200
+
+    def close_paid(self):
         code = self.buyer.add_funds(self.total_price)
         assert code == 200
         code = self.buyer.payment(self.order_id)
+        assert code == 200
+        code = self.buyer.close_order(self.order_id)
         assert code == 200
 
     def test_authorization_error(self):
-        code = self.buyer.add_funds(self.total_price)
-        assert code == 200
         self.buyer.password = self.buyer.password + "_x"
-        code = self.buyer.payment(self.order_id)
+        code = self.buyer.close_order(self.order_id)
+        assert code != 200
+        # self.buyer_id=self.buyer_id+"_x"
+        # code = self.buyer.close_order(self.order_id)
+        # assert code != 200
+
+    # def test_invalid_order(self):
+    #     self.order_id = self.order_id + "_____12e"
+    #     code = self.buyer.close_order(self.order_id)
+    #     assert code != 200
+
+    def test_repeat_close(self):
+        code = self.buyer.close_order(self.order_id)
+        assert code == 200
+        code = self.buyer.close_order(self.order_id)
         assert code != 200
 
-    def test_not_suff_funds(self):
-        code = self.buyer.add_funds(self.total_price - 1)
-        assert code == 200
-        code = self.buyer.payment(self.order_id)
-        assert code != 200
-
-    def test_repeat_pay(self):
-        code = self.buyer.add_funds(self.total_price)
-        assert code == 200
-        code = self.buyer.payment(self.order_id)
-        assert code == 200
-
-        code = self.buyer.payment(self.order_id)
-        assert code != 200
+    # def test_can_not_close(self):
+    #     # 发货收货
+    #     code = self.buyer.close_order(self.order_id)
+    #     assert code != 200

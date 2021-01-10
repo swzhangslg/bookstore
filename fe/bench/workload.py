@@ -129,7 +129,7 @@ class Workload:
                     time_new_order, time_payment):
         # 获取当前并发数
         thread_num = len(threading.enumerate())
-        # 加索
+        # 加锁
         self.lock.acquire()
         self.n_new_order = self.n_new_order + n_new_order
         self.n_payment = self.n_payment + n_payment
