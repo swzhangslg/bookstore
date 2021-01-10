@@ -43,13 +43,9 @@ class Player():
 
     def __check_token(self, user_id, db_token, token) -> bool:
         try:
-            print('db_token:',db_token)
-            print(token)
             hex_str=r"\x"+bytes(token,encoding='utf-8').hex()
-            print('hex_str:',hex_str)
             if db_token != token and db_token != hex_str:
                 return False
-            print('aaa')
             jwt_text = jwt_decode(encoded_token=token, user_id=user_id)
             ts = jwt_text["timestamp"]
             if ts is not None:
@@ -64,7 +60,6 @@ class Player():
         try:
             terminal = "terminal_{}".format(str(time.time()))
             token = jwt_encode(user_id, terminal)
-            # print("xxx"+str(token))
             user_one = User(
                 user_id=user_id,
                 password=password,
@@ -74,9 +69,6 @@ class Player():
             )
             session.add(user_one)
             session.commit()
-        # except sqlite.Error:
-        # return error.error_exist_user_id(user_id)
-        # return 200, "ok"
         except sqlalchemy.exc.IntegrityError:
             return error.error_exist_user_id(user_id)
         return 200, "ok"
@@ -107,23 +99,10 @@ class Player():
         if code != 200:
             return code, message, ""
         token = jwt_encode(user_id, terminal)
-        #token="1.1.1"
-        #print("123"+str(token))
         cursor = session.query(User).filter(User.user_id == user_id).first()
         cursor.token = token
         cursor.terminal = terminal
         session.commit()
-        # cursor = self.conn.execute(
-        #     "UPDATE user set token= ? , terminal = ? where user_id = ?",
-        #     (token, terminal, user_id), )
-        # if cursor is None:
-        #     return error.error_authorization_fail() + ("",)
-        # self.conn.commit()
-        # except sqlite.Error as e:
-        #     return 200, "ok"
-        # return 528, "{}".format(str(e)), ""
-        # except BaseException as e:
-        #     return 530, "{}".format(str(e)), ""
         return 200, "ok", token
 
     def logout(self, user_id: str, token: str) -> bool:
@@ -138,11 +117,6 @@ class Player():
             cursor.token = dummy_token
             cursor.terminal = terminal
             session.commit()
-            # except sqlite.Error as e:
-            # return 528, "{}".format(str(e))
-            # return 200, "ok"
-            # except BaseException as e:
-            #     return 530, "{}".format(str(e))
             return 200, "ok"
         except sqlalchemy.exc.IntegrityError:
             return error.error_authorization_fail()
@@ -152,13 +126,8 @@ class Player():
         if code != 200:
             return code, message
         cursor = session.query(User).filter(User.user_id == user_id).first()
-        # self.session.delete(cursor)
-        # cursor = self.conn.execute("DELETE from user where user_id=?", (user_id,))
         session.delete(cursor)
         session.commit()
-        # return 528, "{}".format(str(e))
-        # except BaseException as e:
-        #     return 530, "{}".format(str(e))
         return 200, "ok"
 
     def change_password(self, user_id: str, old_password: str, new_password: str) -> bool:
@@ -173,9 +142,6 @@ class Player():
         cursor.token = token
         cursor.terminal = terminal
         session.commit()
-        # cursor = self.conn.execute(
-        #     "UPDATE user set password = ?, token= ? , terminal = ? where user_id = ?",
-        #     (new_password, token, terminal, user_id), )
         return 200, "ok"
 
 
@@ -183,7 +149,7 @@ class Player():
         ret = []
         records = session.execute(
             "SELECT title,author,publisher,book_intro,tags "
-            "FROM book_search WHERE book_id in "
+            "FROM book WHERE book_id in "
             "(select book_id from search_author where author='%s')" % (
                 author)).fetchall()
         if len(records) != 0:
@@ -206,7 +172,7 @@ class Player():
         ret = []
         records = session.execute(
             "SELECT title,author,publisher,book_intro,tags "
-            "FROM book_search WHERE book_id in "
+            "FROM book WHERE book_id in "
             "(select book_id from search_book_intro where book_intro='%s')" % (
                 book_intro)).fetchall()  # 约对"小说"约0.09s
         if len(records) != 0:
@@ -229,7 +195,7 @@ class Player():
         ret = []
         records = session.execute(
             "SELECT title,author,publisher,book_intro,tags "
-            "FROM book_search WHERE book_id in "
+            "FROM book WHERE book_id in "
             "(select book_id from search_tags where tags='%s')" % (
                 tags)).fetchall()
         if len(records) != 0:
@@ -252,7 +218,7 @@ class Player():
         ret = []
         records = session.execute(
             "SELECT title,author,publisher,book_intro,tags "
-            "FROM book_search WHERE book_id in "
+            "FROM book WHERE book_id in "
             "(select book_id from search_title where title='%s')" % (
                 title)).fetchall()
         if len(records) != 0:
@@ -274,7 +240,7 @@ class Player():
     def search_author_in_store(self, author: str, store_id: str) -> (int, [dict]):
         ret = []
         records = session.execute(
-            "SELECT title,book.author,publisher,book_intro,tags "
+            "SELECT title,author,publisher,book_intro,tags "
             "FROM book WHERE book_id in "
             "(select book_id from search_author where author='%s') and "
             "book_id in (select book_id from store_detail where store_id='%s')"
@@ -298,7 +264,7 @@ class Player():
     def search_book_intro_in_store(self, book_intro: str, store_id: str) -> (int, [dict]):
         ret = []
         records = session.execute(
-            "SELECT title,author,publisher,book.book_intro,tags "
+            "SELECT title,author,publisher,book_intro,tags "
             "FROM book WHERE book_id in "
             "(select book_id from search_book_intro where book_intro='%s') and "
             "book_id in (select book_id from store_detail where store_id='%s')"
@@ -322,7 +288,7 @@ class Player():
     def search_tags_in_store(self, tags: str, store_id: str) -> (int, [dict]):
         ret = []
         records = session.execute(
-            "SELECT title,author,publisher,book_intro,book.tags "
+            "SELECT title,author,publisher,book_intro,tags "
             "FROM book WHERE book_id in "
             "(select book_id from search_tags where tags='%s') and "
             "book_id in (select book_id from store_detail where store_id='%s')"
@@ -346,7 +312,7 @@ class Player():
     def search_title_in_store(self, title: str, store_id: str) -> (int, [dict]):
         ret = []
         records = session.execute(
-            "SELECT book.title,author,publisher,book_intro,tags "
+            "SELECT title,author,publisher,book_intro,tags "
             "FROM book WHERE book_id in "
             "(select book_id from search_title where title='%s') and "
             "book_id in (select book_id from store_detail where store_id='%s')"
