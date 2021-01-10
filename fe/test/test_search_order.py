@@ -15,20 +15,10 @@ class TestSearchOrder:
         self.password = self.buyer_id
         b = register_new_buyer(self.buyer_id, self.password)
         self.buyer = b
-        # code, self.order_id = b.new_order(self.store_id, buy_book_id_list)
-        # assert code == 200
-        # self.total_price = 0
-        # for item in self.buy_book_info_list:
-        #     book: Book = item[0]
-        #     num = item[1]
-        #     if book.price is None:
-        #         continue
-        #     else:
-        #         self.total_price = self.total_price + book.price * num
         yield
 
     def test_ok(self):
-        order_num = random.randint(1, 10)
+        order_num = random.randint(3, 10)
         for i in range(order_num):
             self.seller_id = "test_search_order_seller_id_{}".format(str(uuid.uuid1()))
             self.store_id = "test_search_order_store_id_{}".format(str(uuid.uuid1()))
@@ -47,8 +37,17 @@ class TestSearchOrder:
             assert code == 200
             code, self.order_id = self.buyer.new_order(self.store_id, buy_book_id_list)
             assert code == 200
-            code = self.buyer.payment(self.store_id)
-            assert code == 200
+
+            paystatus = random.randint(0, 3)
+            if (paystatus != 3):  # 3：未付款
+                code = self.buyer.payment(self.store_id)
+                assert code == 200
+                if (paystatus != 0):  # 0：未发货；1：已发货
+                    code = self.seller.send_books(self.seller_id, self.order_id)
+                    assert code == 200
+                    if (paystatus == 2):  # 2：已收货
+                        code = self.buyer.receive_book(self.buyer_id, self.order_id)
+                        assert code == 200
         code = self.buyer.search_order()
         assert code == 200
 
@@ -69,13 +68,6 @@ class TestSearchOrder:
         code = self.buyer.search_order()
         assert code != 200
 
-    def test_repeat_close(self):
-        code = self.buyer.close_order(self.order_id)
+    def test_history_None(self):
+        code = self.buyer.search_order()
         assert code == 200
-        code = self.buyer.close_order(self.order_id)
-        assert code != 200
-
-    # def test_can_not_close(self):
-    #     # 发货收货
-    #     code = self.buyer.close_order(self.order_id)
-    #     assert code != 200

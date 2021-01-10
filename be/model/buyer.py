@@ -158,24 +158,42 @@ class Buyer():
         session.commit()
         return 200, "ok"
 
-    # 自动取消：检查未付款order是否超出15min
-    def check_order(self, order_id):
-        order2pay = session.query(Order_to_Pay).filter(Order_to_Pay.order_id == order_id).first()
-        if order2pay is not None:
-            paytime = order2pay.paytime
-            time_now = datetime.now()
-            old_time = datetime.strptime(str(paytime), "%Y-%m-%d %H:%M:%S.%f")
-            new_time = datetime.strptime(str(time_now), "%Y-%m-%d %H:%M:%S.%f")
-            time_lag = (new_time - old_time).seconds  # 计算时间差
+    def receive_books(self, buyer_id, order_id):
+        order = session.query(Order).filter(Order.order_id == order_id).first()
+        if order is None:
+            return error.error_invalid_order_id(order_id)
+        if order.status == 0:
+            return error.error_order_unsent(order_id)
+        if order.status == 2:
+            return error.error_order_received(order_id)
 
-            # 超出15min未付款则关闭订单
-            if (time_lag > 15 * 60):
-                user_id = order2pay.user_id
-                store_id = order2pay.store_id
-                session.add(Order(order_id=order_id, user_id=user_id, store_id=store_id, paytime=paytime, status=4))
-                session.delete(order2pay)
-                session.commit()
-                return 200, "ok", "closed"
+        if order.user_id != buyer_id:
+            return error.error_authorization_fail()
+
+        order.status = 2
+        session.commit()
+        return 200, "ok"
+
+    # 自动取消：检查未付款order是否超出15min
+    def check_order(self):
+        order2pay = session.query(Order_to_Pay).all()
+        if order2pay is not []:
+            for i in range(len(order2pay)):
+                paytime = order2pay[i].paytime
+                time_now = datetime.now()
+                old_time = datetime.strptime(str(paytime), "%Y-%m-%d %H:%M:%S.%f")
+                new_time = datetime.strptime(str(time_now), "%Y-%m-%d %H:%M:%S.%f")
+                time_lag = (new_time - old_time).seconds  # 计算时间差
+
+                # 超出15min未付款则关闭订单
+                if (time_lag > 15 * 60):
+                    order_id = order2pay[i].order_id
+                    user_id = order2pay[i].user_id
+                    store_id = order2pay[i].store_id
+                    session.add(Order(order_id=order_id, user_id=user_id, store_id=store_id, paytime=paytime, status=4))
+                    session.delete(order2pay[i])
+                    session.commit()
+                    return 200, "ok", "closed"
         return 200, "ok", None
 
     # 手动取消
@@ -282,7 +300,7 @@ class Buyer():
                 order_id = order[i].order_id
                 status = order[i].status
                 if (status == 0):
-                    status = "已付款"
+                    status = "已付款，待发货"
                 elif (status == 1):
                     status = "已发货"
                 elif (status == 2):
@@ -311,14 +329,11 @@ class Buyer():
             return 200, "ok", None
 
 
-# class Auto_Buyer(threading.Thread):
-#     def __init__(self):
-#         threading.Thread.__init__(self)
-#         self.event=threading.Event()
-#
-#     def thread(self):
-#         Buyer.check_order()
-#
-#     def run(self):
+class Auto_Buyer():
+    def fun_timer(self):
+        global timer
+        timer = threading.Timer(1, Buyer.check_order())  # 每秒调用1次
+        timer.start()
 
 
+Auto_Buyer.fun_timer()
