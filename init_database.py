@@ -254,7 +254,6 @@ def insert_tags():
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
     row = session.execute("SELECT book_id,tags FROM book;").fetchall()
-    print(row[1])
     m = 0
     for i in row[1:]:
         tmp = i.tags.replace("'", "").replace("[", "").replace("]",
@@ -389,7 +388,7 @@ def add_info():
     session.commit()
 
     StoreA = Store_detail(store_id='王掌柜的书店',
-                          book_id='1',
+                          book_id='1000067',
                           stock_level=10,
                           price=1000)  # 价格单位是分
     StoreB = Store_detail(store_id='王掌柜的书店',
