@@ -42,7 +42,7 @@ def add_funds():
     return jsonify({"message": message}), code
 
 @bp_buyer.route("/receive_books", methods=["POST"])
-def send_books():
+def receive_books():
     user_id: str = request.json.get("buyer_id")
     order_id: str = request.json.get("order_id")
 
