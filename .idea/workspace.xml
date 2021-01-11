@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12ae4254-91d7-45ff-ac85-440d958eb0b8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fe/test/test_receive_books.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/be/model/seller.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/model/seller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/view/buyer.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/view/buyer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/view/seller.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/view/seller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/access/buyer.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/access/buyer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/access/seller.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/access/seller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/test/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/.coverage" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/test/test_close_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/test_close_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/test/test_search_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/test_search_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init_database.py" beforeDir="false" afterPath="$PROJECT_DIR$/init_database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/buyer.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/buyer.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,5 +1,4 @@
 from be.model import error
-from be.db_conn import user_id_exist, store_id_exist, book_id_exist
 from be.db_conn import *
 import json
 from sqlalchemy import and_

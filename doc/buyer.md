@@ -142,3 +142,101 @@ Status Code:
 200 | 充值成功
 401 | 授权失败
 5XX | 无效参数
+
+
+## 买家取消订单
+
+#### URL：
+POST http://[address]/buyer/close_order
+
+#### Request
+
+##### Body:
+```json
+{
+  "user_id": "buyer_id",
+  "password": "password",
+  "order_id": "order_id"
+}
+```
+
+##### 属性说明：
+
+key | 类型 | 描述 | 是否可为空
+---|---|---|---
+user_id | string | 买家用户ID | N
+password | string | 用户密码 | N
+order_id | string | 订单ID | N
+
+
+Status Code:
+
+码 | 描述
+--- | ---
+200 | 取消订单成功
+401 | 授权失败
+5XX | 无效参数
+
+
+## 买家确认收货
+
+#### URL：
+POST http://[address]/buyer/receive_books
+
+#### Request
+
+##### Body:
+```json
+{
+  "user_id": "buyer_id",
+  "order_id": "order_id"
+}
+```
+
+##### 属性说明：
+
+key | 类型 | 描述 | 是否可为空
+---|---|---|---
+user_id | string | 买家用户ID | N
+order_id | string | 订单ID | N
+
+
+Status Code:
+
+码 | 描述
+--- | ---
+200 | 收货成功
+401 | 授权失败
+5XX | 无效参数
+
+
+## 买家查询历史订单
+
+#### URL：
+POST http://[address]/buyer/search_order
+
+#### Request
+
+##### Body:
+```json
+{
+  "user_id": "buyer_id",
+  "password": "password"
+}
+```
+
+##### 属性说明：
+
+key | 类型 | 描述 | 是否可为空
+---|---|---|---
+user_id | string | 买家用户ID | N
+password | string | 用户密码 | N
+
+
+Status Code:
+
+码 | 描述
+--- | ---
+200 | 查询成功
+401 | 授权失败
+5XX | 无效参数
