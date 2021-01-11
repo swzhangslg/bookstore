@@ -591,6 +591,8 @@ Traceback (most recent call last):
     cursor, statement, parameters, context
   File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\engine\default.py", line 609, in do_execute
     cursor.execute(statement, parameters)
+psycopg2.errors.UniqueViolation: ´íÎó:  ÖØ¸´¼üÎ¥·´Î¨Ò»Ô¼Êø"store_pkey"
+DETAIL:  ¼üÖµ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" ÒÑ¾­´æÔÚ
 
 
 The above exception was the direct cause of the following exception:
@@ -661,6 +663,8 @@ Traceback (most recent call last):
   File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\engine\default.py", line 609, in do_execute
     cursor.execute(statement, parameters)
 sqlalchemy.exc.IntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(psycopg2.errors.UniqueViolation) ´íÎó:  ÖØ¸´¼üÎ¥·´Î¨Ò»Ô¼Êø"store_pkey"
+DETAIL:  ¼üÖµ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" ÒÑ¾­´æÔÚ
 
 [SQL: INSERT INTO store (store_id, user_id) VALUES (%(store_id)s, %(user_id)s)]
 [parameters: {'store_id': 'test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008', 'user_id': 'test_close_order_seller_id_aba1714c-5415-11eb-a704-005056c00008'}]
@@ -705,8 +709,8 @@ Traceback (most recent call last):
   File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 296, in _assert_active
     code="7s2a",
 sqlalchemy.exc.InvalidRequestError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
-(psycopg2.errors.UniqueViolation) ï¿½ï¿½ï¿½ï¿½:  ï¿½Ø¸ï¿½ï¿½ï¿½Î¥ï¿½ï¿½Î¨Ò»Ô¼ï¿½ï¿½"store_pkey"
-DETAIL:  ï¿½ï¿½Öµ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
+(psycopg2.errors.UniqueViolation) ´íÎó:  ÖØ¸´¼üÎ¥·´Î¨Ò»Ô¼Êø"store_pkey"
+DETAIL:  ¼üÖµ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" ÒÑ¾­´æÔÚ
 
 [SQL: INSERT INTO store (store_id, user_id) VALUES (%(store_id)s, %(user_id)s)]
 [parameters: {'store_id': 'test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008', 'user_id': 'test_close_order_seller_id_aba1714c-5415-11eb-a704-005056c00008'}]
@@ -751,8 +755,8 @@ Traceback (most recent call last):
   File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 296, in _assert_active
     code="7s2a",
 sqlalchemy.exc.InvalidRequestError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
-(psycopg2.errors.UniqueViolation) ï¿½ï¿½ï¿½ï¿½:  ï¿½Ø¸ï¿½ï¿½ï¿½Î¥ï¿½ï¿½Î¨Ò»Ô¼ï¿½ï¿½"store_pkey"
-DETAIL:  ï¿½ï¿½Öµ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
+(psycopg2.errors.UniqueViolation) ´íÎó:  ÖØ¸´¼üÎ¥·´Î¨Ò»Ô¼Êø"store_pkey"
+DETAIL:  ¼üÖµ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" ÒÑ¾­´æÔÚ
 
 [SQL: INSERT INTO store (store_id, user_id) VALUES (%(store_id)s, %(user_id)s)]
 [parameters: {'store_id': 'test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008', 'user_id': 'test_close_order_seller_id_aba1714c-5415-11eb-a704-005056c00008'}]
@@ -797,8 +801,8 @@ Traceback (most recent call last):
   File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 296, in _assert_active
     code="7s2a",
 sqlalchemy.exc.InvalidRequestError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
-(psycopg2.errors.UniqueViolation) ï¿½ï¿½ï¿½ï¿½:  ï¿½Ø¸ï¿½ï¿½ï¿½Î¥ï¿½ï¿½Î¨Ò»Ô¼ï¿½ï¿½"store_pkey"
-DETAIL:  ï¿½ï¿½Öµ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
+(psycopg2.errors.UniqueViolation) ´íÎó:  ÖØ¸´¼üÎ¥·´Î¨Ò»Ô¼Êø"store_pkey"
+DETAIL:  ¼üÖµ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" ÒÑ¾­´æÔÚ
 
 [SQL: INSERT INTO store (store_id, user_id) VALUES (%(store_id)s, %(user_id)s)]
 [parameters: {'store_id': 'test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008', 'user_id': 'test_close_order_seller_id_aba1714c-5415-11eb-a704-005056c00008'}]
@@ -843,8 +847,8 @@ Traceback (most recent call last):
   File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 296, in _assert_active
     code="7s2a",
 sqlalchemy.exc.InvalidRequestError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
-(psycopg2.errors.UniqueViolation) ï¿½ï¿½ï¿½ï¿½:  ï¿½Ø¸ï¿½ï¿½ï¿½Î¥ï¿½ï¿½Î¨Ò»Ô¼ï¿½ï¿½"store_pkey"
-DETAIL:  ï¿½ï¿½Öµ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
+(psycopg2.errors.UniqueViolation) ´íÎó:  ÖØ¸´¼üÎ¥·´Î¨Ò»Ô¼Êø"store_pkey"
+DETAIL:  ¼üÖµ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" ÒÑ¾­´æÔÚ
 
 [SQL: INSERT INTO store (store_id, user_id) VALUES (%(store_id)s, %(user_id)s)]
 [parameters: {'store_id': 'test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008', 'user_id': 'test_close_order_seller_id_aba1714c-5415-11eb-a704-005056c00008'}]
