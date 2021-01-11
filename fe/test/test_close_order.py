@@ -58,25 +58,25 @@ class TestCloseOrder:
         assert code != 200
 
     # 发货
-    def test_send(self):
+    def test_close_send(self):
         code = self.buyer.add_funds(self.total_price)
         assert code == 200
         code = self.buyer.payment(self.order_id)
         assert code == 200
-        code = self.buyer.send_books(self.order_id)
+        code = self.seller.send_books(self.seller_id, self.order_id)
         assert code == 200
         code = self.buyer.close_order(self.order_id)
         assert code != 200
 
     # 收货
-    def test_received(self):
+    def test_close_received(self):
         code = self.buyer.add_funds(self.total_price)
         assert code == 200
         code = self.buyer.payment(self.order_id)
         assert code == 200
-        code = self.seller.send_books(self.order_id)
+        code = self.seller.send_books(self.seller_id, self.order_id)
         assert code == 200
-        code = self.buyer.received_books(self.order_id)
+        code = self.buyer.receive_books(self.buyer_id, self.order_id)
         assert code == 200
         code = self.buyer.close_order(self.order_id)
         assert code != 200
