@@ -591,8 +591,6 @@ Traceback (most recent call last):
     cursor, statement, parameters, context
   File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\engine\default.py", line 609, in do_execute
     cursor.execute(statement, parameters)
-psycopg2.errors.UniqueViolation: ����:  �ظ���Υ��ΨһԼ��"store_pkey"
-DETAIL:  ��ֵ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" �Ѿ�����
 
 
 The above exception was the direct cause of the following exception:
@@ -663,8 +661,6 @@ Traceback (most recent call last):
   File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\engine\default.py", line 609, in do_execute
     cursor.execute(statement, parameters)
 sqlalchemy.exc.IntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
-(psycopg2.errors.UniqueViolation) ����:  �ظ���Υ��ΨһԼ��"store_pkey"
-DETAIL:  ��ֵ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" �Ѿ�����
 
 [SQL: INSERT INTO store (store_id, user_id) VALUES (%(store_id)s, %(user_id)s)]
 [parameters: {'store_id': 'test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008', 'user_id': 'test_close_order_seller_id_aba1714c-5415-11eb-a704-005056c00008'}]
@@ -709,6 +705,530 @@ Traceback (most recent call last):
   File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 296, in _assert_active
     code="7s2a",
 sqlalchemy.exc.InvalidRequestError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(psycopg2.errors.UniqueViolation) ����:  �ظ���Υ��ΨһԼ��"store_pkey"
+DETAIL:  ��ֵ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" �Ѿ�����
+
+[SQL: INSERT INTO store (store_id, user_id) VALUES (%(store_id)s, %(user_id)s)]
+[parameters: {'store_id': 'test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008', 'user_id': 'test_close_order_seller_id_aba1714c-5415-11eb-a704-005056c00008'}]
+(Background on this error at: http://sqlalche.me/e/13/gkpj) (Background on this error at: http://sqlalche.me/e/13/7s2a)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:02:41] "[35m[1mPOST /auth/register HTTP/1.1[0m" 500 -
+ERROR:be.serve:Exception on /auth/register [POST]
+Traceback (most recent call last):
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\Python\junior1\Database System\bookstore\be\view\auth.py", line 34, in register
+    code, message = u.register(user_id=user_id, password=password)
+  File "D:\Python\junior1\Database System\bookstore\be\model\user.py", line 63, in register
+    cursor = session.query(User).filter(User.user_id == user_id).first()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3429, in first
+    ret = list(self[0:1])
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3203, in __getitem__
+    return list(res)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3557, in _execute_and_instances
+    querycontext, self._connection_from_session, close_with_result=True
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3572, in _get_bind_args
+    mapper=self._bind_mapper(), clause=querycontext.statement, **kw
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3550, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 1145, in connection
+    execution_options=execution_options,
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 1151, in _connection_for_bind
+    engine, execution_options
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 409, in _connection_for_bind
+    self._assert_active()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 296, in _assert_active
+    code="7s2a",
+sqlalchemy.exc.InvalidRequestError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(psycopg2.errors.UniqueViolation) ����:  �ظ���Υ��ΨһԼ��"store_pkey"
+DETAIL:  ��ֵ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" �Ѿ�����
+
+[SQL: INSERT INTO store (store_id, user_id) VALUES (%(store_id)s, %(user_id)s)]
+[parameters: {'store_id': 'test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008', 'user_id': 'test_close_order_seller_id_aba1714c-5415-11eb-a704-005056c00008'}]
+(Background on this error at: http://sqlalche.me/e/13/gkpj) (Background on this error at: http://sqlalche.me/e/13/7s2a)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:02:41] "[35m[1mPOST /auth/register HTTP/1.1[0m" 500 -
+ERROR:be.serve:Exception on /auth/register [POST]
+Traceback (most recent call last):
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\Python\junior1\Database System\bookstore\be\view\auth.py", line 34, in register
+    code, message = u.register(user_id=user_id, password=password)
+  File "D:\Python\junior1\Database System\bookstore\be\model\user.py", line 63, in register
+    cursor = session.query(User).filter(User.user_id == user_id).first()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3429, in first
+    ret = list(self[0:1])
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3203, in __getitem__
+    return list(res)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3557, in _execute_and_instances
+    querycontext, self._connection_from_session, close_with_result=True
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3572, in _get_bind_args
+    mapper=self._bind_mapper(), clause=querycontext.statement, **kw
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3550, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 1145, in connection
+    execution_options=execution_options,
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 1151, in _connection_for_bind
+    engine, execution_options
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 409, in _connection_for_bind
+    self._assert_active()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 296, in _assert_active
+    code="7s2a",
+sqlalchemy.exc.InvalidRequestError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(psycopg2.errors.UniqueViolation) ����:  �ظ���Υ��ΨһԼ��"store_pkey"
+DETAIL:  ��ֵ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" �Ѿ�����
+
+[SQL: INSERT INTO store (store_id, user_id) VALUES (%(store_id)s, %(user_id)s)]
+[parameters: {'store_id': 'test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008', 'user_id': 'test_close_order_seller_id_aba1714c-5415-11eb-a704-005056c00008'}]
+(Background on this error at: http://sqlalche.me/e/13/gkpj) (Background on this error at: http://sqlalche.me/e/13/7s2a)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:02:41] "[35m[1mPOST /auth/register HTTP/1.1[0m" 500 -
+ERROR:be.serve:Exception on /auth/register [POST]
+Traceback (most recent call last):
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\Python\junior1\Database System\bookstore\be\view\auth.py", line 34, in register
+    code, message = u.register(user_id=user_id, password=password)
+  File "D:\Python\junior1\Database System\bookstore\be\model\user.py", line 63, in register
+    cursor = session.query(User).filter(User.user_id == user_id).first()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3429, in first
+    ret = list(self[0:1])
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3203, in __getitem__
+    return list(res)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3557, in _execute_and_instances
+    querycontext, self._connection_from_session, close_with_result=True
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3572, in _get_bind_args
+    mapper=self._bind_mapper(), clause=querycontext.statement, **kw
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\query.py", line 3550, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 1145, in connection
+    execution_options=execution_options,
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 1151, in _connection_for_bind
+    engine, execution_options
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 409, in _connection_for_bind
+    self._assert_active()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\sqlalchemy\orm\session.py", line 296, in _assert_active
+    code="7s2a",
+sqlalchemy.exc.InvalidRequestError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(psycopg2.errors.UniqueViolation) ����:  �ظ���Υ��ΨһԼ��"store_pkey"
+DETAIL:  ��ֵ"(store_id)=(test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008)" �Ѿ�����
+
+[SQL: INSERT INTO store (store_id, user_id) VALUES (%(store_id)s, %(user_id)s)]
+[parameters: {'store_id': 'test_close_order_store_id_aba1714d-5415-11eb-ae55-005056c00008', 'user_id': 'test_close_order_seller_id_aba1714c-5415-11eb-a704-005056c00008'}]
+(Background on this error at: http://sqlalche.me/e/13/gkpj) (Background on this error at: http://sqlalche.me/e/13/7s2a)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:02:41] "[35m[1mPOST /auth/register HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:02:42] "[37mGET /shutdown HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:02:43] "[37mGET /shutdown HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /buyer/close_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:39] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[31m[1mPOST /buyer/close_order HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[31m[1mPOST /buyer/close_order HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /buyer/close_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[35m[1mPOST /buyer/close_order HTTP/1.1[0m" 521 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:40] "[31m[1mPOST /seller/send_books HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[31m[1mPOST /seller/send_books HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:03:41] "[37mGET /shutdown HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /buyer/close_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[31m[1mPOST /buyer/close_order HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[31m[1mPOST /buyer/close_order HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:42] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /buyer/close_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[35m[1mPOST /buyer/close_order HTTP/1.1[0m" 521 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[31m[1mPOST /seller/send_books HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:43] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:44] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:44] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:04:44] "[37mGET /shutdown HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:45] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:45] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:45] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:45] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:45] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:45] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:45] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /buyer/close_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[31m[1mPOST /buyer/close_order HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[31m[1mPOST /buyer/close_order HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:46] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /buyer/close_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[35m[1mPOST /buyer/close_order HTTP/1.1[0m" 521 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[31m[1mPOST /seller/send_books HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:47] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:48] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:48] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:48] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:48] "[35m[1mPOST /buyer/receive_books HTTP/1.1[0m" 522 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:05:48] "[37mGET /shutdown HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /buyer/close_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[31m[1mPOST /buyer/close_order HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[31m[1mPOST /buyer/close_order HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:33] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /buyer/close_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[35m[1mPOST /buyer/close_order HTTP/1.1[0m" 521 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/send_books HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[35m[1mPOST /buyer/close_order HTTP/1.1[0m" 524 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:34] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:35] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:35] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:35] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:35] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:35] "[37mPOST /seller/send_books HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:35] "[37mPOST /buyer/receive_books HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:35] "[35m[1mPOST /buyer/close_order HTTP/1.1[0m" 524 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:07:35] "[37mGET /shutdown HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[35m[1mPOST /buyer/payment HTTP/1.1[0m" 518 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+ERROR:be.serve:Exception on /buyer/search_order [POST]
+Traceback (most recent call last):
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\Python\junior1\Database System\bookstore\be\view\buyer.py", line 70, in search_order
+    code, message, historys = b.search_order(user_id, password)
+ValueError: not enough values to unpack (expected 3, got 2)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[35m[1mPOST /buyer/search_order HTTP/1.1[0m" 500 -
+ERROR:be.serve:Exception on /buyer/search_order [POST]
+Traceback (most recent call last):
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\Python\junior1\Database System\bookstore\be\view\buyer.py", line 70, in search_order
+    code, message, historys = b.search_order(user_id, password)
+ValueError: not enough values to unpack (expected 3, got 2)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[35m[1mPOST /buyer/search_order HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:51] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:52] "[37mPOST /buyer/search_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 22:08:52] "[37mGET /shutdown HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:27] "[37mGET /shutdown HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:54] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:54] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:54] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:54] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:54] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/send_books HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:55] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /seller/send_books HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /seller/send_books HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /seller/create_store HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /seller/add_book HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /buyer/add_funds HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /buyer/new_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /buyer/payment HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /seller/send_books HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /buyer/search_order HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /auth/register HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [11/Jan/2021 23:48:56] "[37mPOST /auth/login HTTP/1.1[0m" 200 -
+ERROR:be.serve:Exception on /buyer/search_order [POST]
+Traceback (most recent call last):
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
   File "c:\users\asus\appdata\local\programs\python\python37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
   File "D:\Python\junior1\Database System\bookstore\be\view\buyer.py", line 70, in search_order
