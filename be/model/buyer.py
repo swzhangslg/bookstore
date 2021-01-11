@@ -1,7 +1,7 @@
 import uuid
 import json
 import logging
-from datetime import datetime
+from datetime import timedelta
 from be.db_conn import *
 from be.model import error
 import threading
@@ -329,11 +329,37 @@ class Buyer():
             return 200, "ok", None
 
 
-class Auto_Buyer():
-    def fun_timer(self):
-        global timer
-        timer = threading.Timer(1, Buyer.check_order())  # 每秒调用1次
-        timer.start()
+to_be_overtime = {}
 
 
-Auto_Buyer.fun_timer()
+def overtime_append(key, value):
+    global to_be_overtime
+    if key in to_be_overtime:
+        to_be_overtime[key].append(value)
+    else:
+        to_be_overtime[key] = [value]
+
+
+class Auto_Buyer(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.event = threading.Event()
+
+    def thread(self):
+        Buyer.check_order(to_be_overtime[(datetime.utcnow() + timedelta(seconds=1)).second])
+
+    def run(self):
+        global to_be_overtime
+        while not self.event.is_set():
+            self.event.wait(1)
+            if (datetime.utcnow() + timedelta(seconds=1)).second in to_be_overtime:
+                self.thread()
+    # def fun_timer(self):
+    #     global timer
+    #     timer = threading.Timer(1, Buyer.check_order(self))  # 每秒调用1次
+    #     timer.start()
+
+
+# Auto_Buyer.fun_timer()
+timer = Auto_Buyer()
+timer.start()
