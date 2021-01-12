@@ -28,13 +28,22 @@ class TestCloseOrder:
             book: Book = item[0]
             num = item[1]
             self.total_price = self.total_price + book.price * num
+
+        self.buyer2_id = "test_close_order_buyer2_id_{}".format(str(uuid.uuid1()))  # 2号无订单买家
+        self.password2 = self.buyer2_id
+        b2 = register_new_buyer(self.buyer2_id, self.password2)
+        self.buyer2 = b2
         yield
 
     def test_ok(self):
         code = self.buyer.close_order(self.order_id)
         assert code == 200
 
-    def close_paid(self):
+    def test_no_order(self):
+        code = self.buyer2.close_order(self.order_id)
+        assert code != 200
+
+    def test_close_paid(self):
         code = self.buyer.add_funds(self.total_price)
         assert code == 200
         code = self.buyer.payment(self.order_id)
