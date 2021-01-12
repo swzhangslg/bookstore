@@ -72,9 +72,11 @@ bash script/test.sh
    订单的子类：订单详情。
    
 2. 属性
+
    用户包含：唯一属性user_id，单值属性密码、余额、终端和token（登陆的用户token不会重复，未登录的用户token为空）。
 
    订单包含：唯一属性order_id，单值属性订单应付款金额和订单创建时间、状态属性（0为已付款，1为已发货，2为已收货, 3为已下单未付款,4为交易关闭）。
+
    店铺包含：唯一属性store_id。
 
    书籍包含：唯一属性book_id，单值属性标题、作者、出版商、isbn号、原价等。
@@ -336,7 +338,7 @@ github仓库：[swzhangslg/bookstore (github.com)](https://github.com/swzhangslg
 
 ### 持续集成
 
-每次commit后立刻进行测试，利用Travis与Codecov，显示测试是否通过以及覆盖率，点击文件头图标连接可查看细节：
+每次commit并push后立刻进行测试，利用Travis与Codecov，显示测试是否通过以及覆盖率，点击文件头图标连接可查看细节：
 
 ![](./pictures/t1.png)
 
