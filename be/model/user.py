@@ -1,3 +1,5 @@
+import uuid
+
 import jwt
 import logging
 import time
@@ -16,7 +18,7 @@ from be.db_conn import *
 
 def jwt_encode(user_id: str, terminal: str) -> str:
     encoded = jwt.encode(
-        {"user_id": user_id, "terminal": terminal, "timestamp": time.time()},
+        {"user_id": user_id, "terminal": terminal},
         key=user_id,
         algorithm="HS256",
     )
@@ -37,34 +39,19 @@ def jwt_decode(encoded_token, user_id: str) -> str:
 class Player():
     token_lifetime: int = 3600  # 3600 second
 
-    def __check_token(self, user_id, db_token, token) -> bool:
-        try:
-            hex_str = r"\x" + bytes(token, encoding='utf-8').hex()
-            if db_token != token and db_token != hex_str:
-                return False
-            jwt_text = jwt_decode(encoded_token=token, user_id=user_id)
-            ts = jwt_text["timestamp"]
-            if ts is not None:
-                now = time.time()
-                if self.token_lifetime > now - ts >= 0:
-                    return True
-        except jwt.exceptions.InvalidSignatureError as e:
-            logging.error(str(e))
-            return False
-
     def register(self, user_id: str, password: str):
-        terminal = "terminal_{}".format(str(time.time()))
+        terminal = "terminal_{}".format(str(uuid.uuid1()))
         token = jwt_encode(user_id, terminal)
         cursor = session.query(User).filter(User.user_id == user_id).first()
         if cursor is not None:
             return error.error_exist_user_id(user_id)
         user_one = User(
-                user_id=user_id,
-                password=password,
-                balance=0,
-                token=token,
-                terminal=terminal
-            )
+            user_id=user_id,
+            password=password,
+            balance=0,
+            token=token,
+            terminal=terminal
+        )
         session.add(user_one)
         session.commit()
         return 200, "ok"
@@ -75,7 +62,8 @@ class Player():
             return error.error_authorization_fail()
         db_token = cursor.token
         print('sss')
-        if not self.__check_token(user_id, db_token, token):
+        hex_str = r"\x" + bytes(token, encoding='utf-8').hex()
+        if db_token != token and db_token != hex_str:
             return error.error_authorization_fail()
         return 200, "ok"
 
@@ -106,7 +94,7 @@ class Player():
         if code != 200:
             return code, message
 
-        terminal = "terminal_{}".format(str(time.time()))
+        terminal = "terminal_{}".format(str(uuid.uuid1()))
         dummy_token = jwt_encode(user_id, terminal)
         cursor = session.query(User).filter(User.user_id == user_id).first()
         cursor.token = dummy_token
@@ -128,7 +116,7 @@ class Player():
         if code != 200:
             return code, message
 
-        terminal = "terminal_{}".format(str(time.time()))
+        terminal = "terminal_{}".format(str(uuid.uuid1()))
         token = jwt_encode(user_id, terminal)
         cursor = session.query(User).filter(User.user_id == user_id).first()
         cursor.password = new_password
@@ -145,7 +133,7 @@ class Player():
             "SELECT title,author,publisher,book_intro,tags "
             "FROM book WHERE book_id in "
             "(select book_id from search_author where author='%s') LIMIT 10 OFFSET %d" % (
-                author, 10*page - 10)).fetchall()
+                author, 10 * page - 10)).fetchall()
         if len(records) != 0:
             for i in range(len(records)):
                 record = records[i]
@@ -170,7 +158,7 @@ class Player():
             "SELECT title,author,publisher,book_intro,tags "
             "FROM book WHERE book_id in "
             "(select book_id from search_book_intro where book_intro='%s') LIMIT 10 OFFSET %d" % (
-                book_intro, 10*page - 10)).fetchall()  # 约对"小说"约0.09s
+                book_intro, 10 * page - 10)).fetchall()  # 约对"小说"约0.09s
         if len(records) != 0:
             for i in range(len(records)):
                 record = records[i]
@@ -195,7 +183,7 @@ class Player():
             "SELECT title,author,publisher,book_intro,tags "
             "FROM book WHERE book_id in "
             "(select book_id from search_tags where tags='%s') LIMIT 10 OFFSET %d" % (
-                tags, 10*page - 10)).fetchall()
+                tags, 10 * page - 10)).fetchall()
         if len(records) != 0:
             for i in range(len(records)):
                 record = records[i]
@@ -220,7 +208,7 @@ class Player():
             "SELECT title,author,publisher,book_intro,tags "
             "FROM book WHERE book_id in "
             "(select book_id from search_title where title='%s') LIMIT 10 OFFSET %d" % (
-                title, 10*page - 10)).fetchall()
+                title, 10 * page - 10)).fetchall()
         if len(records) != 0:
             for i in range(len(records)):
                 record = records[i]
@@ -246,7 +234,7 @@ class Player():
             "FROM book WHERE book_id in "
             "(select book_id from search_author where author='%s') and "
             "book_id in (select book_id from store_detail where store_id='%s') LIMIT 10 OFFSET %d"
-            % (author, store_id, 10*page - 10)).fetchall()
+            % (author, store_id, 10 * page - 10)).fetchall()
         if len(records) != 0:
             for i in range(len(records)):
                 record = records[i]
@@ -272,7 +260,7 @@ class Player():
             "FROM book WHERE book_id in "
             "(select book_id from search_book_intro where book_intro='%s') and "
             "book_id in (select book_id from store_detail where store_id='%s') LIMIT 10 OFFSET %d"
-            % (book_intro, store_id, 10*page - 10)).fetchall()
+            % (book_intro, store_id, 10 * page - 10)).fetchall()
         if len(records) != 0:
             for i in range(len(records)):
                 record = records[i]
@@ -298,7 +286,7 @@ class Player():
             "FROM book WHERE book_id in "
             "(select book_id from search_tags where tags='%s') and "
             "book_id in (select book_id from store_detail where store_id='%s') LIMIT 10 OFFSET %d"
-            % (tags, store_id, 10*page - 10)).fetchall()
+            % (tags, store_id, 10 * page - 10)).fetchall()
         if len(records) != 0:
             for i in range(len(records)):
                 record = records[i]
@@ -324,7 +312,7 @@ class Player():
             "FROM book WHERE book_id in "
             "(select book_id from search_title where title='%s') and "
             "book_id in (select book_id from store_detail where store_id='%s') LIMIT 10 OFFSET %d"
-            % (title, store_id, 10*page - 10)).fetchall()
+            % (title, store_id, 10 * page - 10)).fetchall()
         if len(records) != 0:
             for i in range(len(records)):
                 record = records[i]

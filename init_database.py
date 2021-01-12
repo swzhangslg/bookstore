@@ -15,7 +15,7 @@ import simplejson as json
 import jieba.analyse
 
 Base = declarative_base()
-engine = create_engine('postgresql://postgres:111016@localhost:5432/bookstore')
+engine = create_engine('postgresql://postgres:@localhost:5432/bookstore')
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
@@ -149,9 +149,9 @@ class Bookinit:
 
 class BookDB:
     def __init__(self, large: bool = False):
-        parent_path = os.path.dirname(os.path.dirname(__file__))
-        self.db_s = os.path.join(parent_path, "D:\\fileneed\\DatabaseManagementSystem\\bookstore\\fe\\data\\book.db")
-        self.db_l = os.path.join(parent_path, "fe/data/book_lx.db")
+        #parent_path = os.path.dirname(os.path.dirname(__file__))
+        self.db_s = "fe/data/book.db" #os.path.join(parent_path, "E:\\bookstore\\fe\\data\\book.db")
+        self.db_l = "fe/data/book_lx.db" #os.path.join(parent_path, "fe/data/book_lx.db")
         if large:
             self.book_db = self.db_l
         else:
@@ -370,71 +370,9 @@ def drop_db():
     Base.metadata.drop_all(engine)
 
 
-def add_info():
-    A = User(user_id='王掌柜',
-             password='123456',
-             balance=100,
-             token='***',
-             terminal='Edge')
-    B = User(user_id='小明',
-             password='123456',
-             balance=500,
-             token='***',
-             terminal='Chrome')
-    session.add_all([A, B])
-    session.commit()
-
-    A_Store1 = Store(user_id='王掌柜',
-                     store_id='王掌柜的书店')
-    A_Store2 = Store(user_id='王掌柜',
-                     store_id='王掌柜的进口书店')
-    Book1 = Book(book_id='1',
-                 title='数据结构')
-    Book2 = Book(book_id='2',
-                 title='PRML')
-    session.add_all([A_Store1, A_Store2, Book1, Book2])
-    session.commit()
-
-    StoreA = Store_detail(store_id='王掌柜的书店',
-                          book_id='1000067',
-                          stock_level=10,
-                          price=1000)  # 价格单位是分
-    StoreB = Store_detail(store_id='王掌柜的书店',
-                          book_id='2',
-                          stock_level=10,
-                          price=10000)
-    session.add_all([StoreA, StoreB])
-    session.commit()
-
-    # OrderA = Order(order_id='order1',
-    #                user_id='小明',
-    #                store_id='王掌柜的书店',
-    #                paytime=datetime.now(),
-    #                status=0)
-    # OrderB = Order(order_id='order2',
-    #                user_id='小明',
-    #                store_id='王掌柜的进口书店',
-    #                paytime=datetime.now(),
-    #                status=3)
-    # session.add_all([OrderA, OrderB])
-    # session.commit()
-
-    # Order_detailA = Order_detail(order_id='order1',
-    #                              book_id='1',
-    #                              count=2)
-    # Order_detailB = Order_detail(order_id='order2',
-    #                              book_id='2',
-    #                              count=1)
-    # session.add_all([Order_detailA, Order_detailB])
-    # session.commit()
-
-    # 关闭session
-    session.close()
-
 
 if __name__ == "__main__":
     drop_db()
-    print("1111111111111")
     init_db()
     bookdb = BookDB(large=False)
     bookdb.send_info()
@@ -442,4 +380,3 @@ if __name__ == "__main__":
     insert_author()
     insert_title()
     insert_book_intro()
-    add_info()

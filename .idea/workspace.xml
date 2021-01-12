@@ -2,8 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12ae4254-91d7-45ff-ac85-440d958eb0b8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/be/model/seller.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/model/seller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bookstore.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bookstore.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.log" beforeDir="false" afterPath="$PROJECT_DIR$/app.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/db_conn.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/db_conn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/model/buyer.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/model/buyer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/model/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/model/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/be/view/buyer.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/view/buyer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/doc/buyer.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/buyer.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/.coverage" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/coverage_html.js" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/coverage_html.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/gen_book_data_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/gen_book_data_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/jquery.ba-throttle-debounce.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/jquery.ba-throttle-debounce.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/jquery.hotkeys.js" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/jquery.hotkeys.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/jquery.isonscreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/jquery.isonscreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/jquery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/jquery.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/jquery.tablesorter.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/jquery.tablesorter.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/status.json" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/status.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/test_add_book_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/test_add_book_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/test_add_funds_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/test_add_funds_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/test_add_stock_level_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/test_add_stock_level_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/test_bench_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/test_bench_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/test_create_store_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/test_create_store_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/test_login_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/test_login_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/test_new_order_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/test_new_order_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/test_password_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/test_password_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/test_payment_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/test_payment_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/test_register_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/test_register_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/htmlcov/test_search_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/htmlcov/test_search_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/test/test_create_store.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/test_create_store.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init_database.py" beforeDir="false" afterPath="$PROJECT_DIR$/init_database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +81,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Cloud Computing/albumy" />
+    <property name="last_opened_file_path" value="D:/bookstore" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
@@ -107,6 +139,8 @@
       <workItem from="1610283218782" duration="6387000" />
       <workItem from="1610290165059" duration="6847000" />
       <workItem from="1610329640044" duration="2559000" />
+      <workItem from="1610443292391" duration="2894000" />
+      <workItem from="1610446944832" duration="9781000" />
     </task>
     <servers />
   </component>
@@ -117,30 +151,36 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1610342417550">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="449" y="103" key="FileChooserDialogImpl" timestamp="1610457115357">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1610342417550" />
-    <state width="1237" height="99" key="GridCell.Tab.0.bottom" timestamp="1610373535833">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="449" y="103" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1610457115357" />
+    <state width="1323" height="322" key="GridCell.Tab.0.bottom" timestamp="1610457797139">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1237" height="99" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1610373535833" />
-    <state width="1237" height="99" key="GridCell.Tab.0.center" timestamp="1610373535833">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1237" height="231" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1610444712615" />
+    <state width="1323" height="322" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1610457797139" />
+    <state width="1323" height="322" key="GridCell.Tab.0.center" timestamp="1610457797139">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1237" height="99" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1610373535833" />
-    <state width="1237" height="99" key="GridCell.Tab.0.left" timestamp="1610373535833">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1237" height="231" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1610444712615" />
+    <state width="1323" height="322" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1610457797139" />
+    <state width="1323" height="322" key="GridCell.Tab.0.left" timestamp="1610457797139">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1237" height="99" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1610373535833" />
-    <state width="1237" height="99" key="GridCell.Tab.0.right" timestamp="1610373535833">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1237" height="231" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1610444712615" />
+    <state width="1323" height="322" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1610457797139" />
+    <state width="1323" height="322" key="GridCell.Tab.0.right" timestamp="1610457797139">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1237" height="99" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1610373535833" />
-    <state x="142" y="0" key="SettingsEditor" timestamp="1610176322599">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1237" height="231" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1610444712615" />
+    <state width="1323" height="322" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1610457797139" />
+    <state x="152" y="0" key="SettingsEditor" timestamp="1610447321410">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1610176322599" />
+    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1610444270107" />
+    <state x="152" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1610447321410" />
     <state x="437" y="258" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1610291982773">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -151,6 +191,6 @@
     <state x="-11" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1610273187678" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/bookstore$init_database.coverage" NAME="init_database Coverage Results" MODIFIED="1610373522422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/bookstore$init_database.coverage" NAME="init_database Coverage Results" MODIFIED="1610456821304" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
