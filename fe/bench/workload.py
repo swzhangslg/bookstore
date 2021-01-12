@@ -8,14 +8,13 @@ from fe.access.new_buyer import register_new_buyer
 from fe.access.buyer import Buyer
 from fe import conf
 
-# logging.basicConfig(
-#     level=logging.INFO,  # 设置日志的显示级别为最低一级
-#     # filename="../../logger.log",  # 设置日志的显示文件名
-#     # filemode='w',  # 设置日志的写入方式为追加
-#     # format='%(asctime)s %(filename)s [%(lineno)d] %(message)s',  # 设置一个输出模板格式
-# )
-
-logging.basicConfig(level=logging.INFO, filename='bench.log')
+logging.basicConfig(
+    level=logging.INFO,  # 设置日志的显示级别为最低一级
+    filename="logger.log",  # 设置日志的显示文件名
+    # filemode='w',  # 设置日志的写入方式为追加
+    # format='%(asctime)s %(filename)s [%(lineno)d] %(message)s',  # 设置一个输出模板格式
+)
+# logging.getLogger().setLevel(logging.INFO)
 
 
 class NewOrder:
@@ -162,7 +161,6 @@ class Workload:
             # Thread_num:以新提交付款订单的数量作为并发数(这一次的TOTAL-上一次的TOTAL)
             # TOTAL:总付款提交订单数量
             # LATENCY:提交付款订单时间/处理付款订单笔数(只考虑该线程延迟，未考虑并发)
-
             logging.info(
                 "TPS_C={}, NO=OK:{} Thread_num:{} TOTAL:{} LATENCY:{} , P=OK:{} Thread_num:{} TOTAL:{} LATENCY:{}".format(
                     int(self.n_new_order_ok / (

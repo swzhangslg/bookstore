@@ -2,25 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="12ae4254-91d7-45ff-ac85-440d958eb0b8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/fe/bench/aa.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/model/buyer.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/model/buyer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/model/error.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/model/error.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/model/seller.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/model/seller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/serve.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/serve.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/be/view/buyer.py" beforeDir="false" afterPath="$PROJECT_DIR$/be/view/buyer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/buyer.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/buyer.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/access/buyer.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/access/buyer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/bench/workload.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/bench/workload.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/bench/aa.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fe/bench/bench.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/fe/test/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/.coverage" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/test/test_close_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/test_close_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/test/test_create_store.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/test_create_store.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/test/test_receive_books.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/test_receive_books.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/test/test_search_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/test_search_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fe/test/test_send_books.py" beforeDir="false" afterPath="$PROJECT_DIR$/fe/test/test_send_books.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/init_database.py" beforeDir="false" afterPath="$PROJECT_DIR$/init_database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,6 +210,7 @@
       <workItem from="1610474300199" duration="711000" />
       <workItem from="1610475980442" duration="542000" />
       <workItem from="1610476686823" duration="949000" />
+      <workItem from="1610481203055" duration="800000" />
     </task>
     <servers />
   </component>
@@ -263,10 +251,10 @@
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1610444270107" />
     <state x="152" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1610447321410" />
-    <state x="363" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1610476686704">
+    <state x="363" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1610481204010">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="363" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1610476686704" />
+    <state x="363" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1610481204010" />
     <state x="437" y="258" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1610291982773">
       <screen x="0" y="0" width="1280" height="680" />
     </state>

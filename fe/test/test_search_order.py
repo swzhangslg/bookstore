@@ -15,10 +15,15 @@ class TestSearchOrder:
         self.password = self.buyer_id
         b = register_new_buyer(self.buyer_id, self.password)
         self.buyer = b
+
+        self.buyer2_id = "test_close_order_buyer2_id_{}".format(str(uuid.uuid1()))  # 2号无订单买家
+        self.password2 = self.buyer2_id
+        b2 = register_new_buyer(self.buyer2_id, self.password2)
+        self.buyer2 = b2
         yield
 
     def test_ok(self):
-        order_num = random.randint(3, 10)
+        order_num = random.randint(10, 20)
         for i in range(order_num):
             self.seller_id = "test_search_order_seller_id_{}".format(str(uuid.uuid1()))
             self.store_id = "test_search_order_store_id_{}".format(str(uuid.uuid1()))
@@ -60,6 +65,6 @@ class TestSearchOrder:
         code = self.buyer.search_order()
         assert code != 200
 
-    def test_history_None(self):
-        code = self.buyer.search_order()
+    def test_no_history(self):
+        code = self.buyer2.search_order()
         assert code == 200

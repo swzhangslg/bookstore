@@ -28,8 +28,5 @@ env:
 after_success:
   - coverage combine
   - coverage report
-  - python app.py &
-  - python run.py
-  - cat bench.log
   - codecov
   - bash <(curl -s https://codecov.io/bash)

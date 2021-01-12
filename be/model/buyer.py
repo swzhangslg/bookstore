@@ -4,11 +4,12 @@ import logging
 from datetime import timedelta
 from be.db_conn import *
 from be.model import error
-import threading
+# import threading
+from threading import Timer
 
 
 class Buyer():
-    def new_order(self, user_id: str, store_id: str, id_and_count: [(str, int)]) -> (int, str, str):
+    def new_order(self, user_id: str, store_id: str, id_and_count: [(str, int)]) -> (int, str, str):  # 箭头后表示返回类型
         order_id = ""
         if not user_id_exist(user_id):
             return error.error_non_exist_user_id(user_id) + (order_id,)
@@ -103,10 +104,8 @@ class Buyer():
             return error.error_order_unsent(order_id)
         if order.status == 2:
             return error.error_order_received(order_id)
-
         if order.user_id != buyer_id:
             return error.error_authorization_fail()
-
         order.status = 2
         session.commit()
         return 200, "ok"
@@ -127,6 +126,22 @@ class Buyer():
                     order_id = order2pay[i].order_id
                     user_id = order2pay[i].user_id
                     store_id = order2pay[i].store_id
+
+                    # 商品退回库存
+                    store = session.query(Store).filter(Store.store_id == store_id).first()
+                    if store is None:
+                        return error.error_non_exist_store_id(store_id)
+                    order_detail = session.query(Order_detail).filter(Order_detail.order_id == order_id).all()
+                    total_price = 0
+                    for i in range(len(order_detail)):
+                        book_id = order_detail[i].book_id
+                        book = session.query(Store_detail).filter(Store_detail.store_id == store_id,
+                                                                  Store_detail.book_id == book_id).first()
+                        count = order_detail[i].count
+                        price = book.price
+                        total_price += price * count
+                        book.stock_level += count
+
                     session.add(Order(order_id=order_id, user_id=user_id, store_id=store_id, paytime=paytime, status=4))
                     session.delete(order2pay[i])
                     session.commit()
@@ -195,11 +210,10 @@ class Buyer():
             paytime = order2pay.paytime
             session.add(Order(order_id=order_id, user_id=buyer_id, store_id=store_id, paytime=paytime, status=4))
             session.delete(order2pay)
-
         session.commit()
         return 200, "ok"
 
-    def search_order(self, user_id: str, password: str):
+    def search_order(self, user_id: str, password: str) -> (int, str, list):
         user = session.query(User).filter(User.user_id == user_id).first()
         if user is None:
             return 401, "authorization fail.", []
@@ -263,40 +277,40 @@ class Buyer():
         if (len(historys) != 0):
             return 200, "ok", historys
         else:
-            return 200, "ok", []
+            return 200, "ok", historys
 
 
-to_be_overtime = {}
+def auto_run():
+    t = Timer(1.0, Buyer.check_order())  # 每秒调用1次
+    t.start()
+    t.cancel()
+    
 
-
-def overtime_append(key, value):
-    global to_be_overtime
-    if key in to_be_overtime:
-        to_be_overtime[key].append(value)
-    else:
-        to_be_overtime[key] = [value]
-
-
-class Auto_Buyer(threading.Thread):
-    def __init__(self):
-        threading.Thread.__init__(self)
-        self.event = threading.Event()
-
-    def thread(self):
-        Buyer.check_order(to_be_overtime[(datetime.utcnow() + timedelta(seconds=1)).second])
-
-    def run(self):
-        global to_be_overtime
-        while not self.event.is_set():
-            self.event.wait(1)
-            if (datetime.utcnow() + timedelta(seconds=1)).second in to_be_overtime:
-                self.thread()
-    # def fun_timer(self):
-    #     global timer
-    #     timer = threading.Timer(1, Buyer.check_order(self))  # 每秒调用1次
-    #     timer.start()
-
-
-# Auto_Buyer.fun_timer()
-timer = Auto_Buyer()
-# timer.start()
+# to_be_overtime = {}
+#
+# def overtime_append(key, value):
+#     global to_be_overtime
+#     if key in to_be_overtime:
+#         to_be_overtime[key].append(value)
+#     else:
+#         to_be_overtime[key] = [value]
+#
+#
+# class Auto_Buyer(threading.Thread):
+#     def __init__(self):
+#         threading.Thread.__init__(self)
+#         self.event = threading.Event()
+#
+#     def thread(self):
+#         Buyer.check_order(to_be_overtime[(datetime.utcnow() + timedelta(seconds=1)).second])
+#
+#     def run(self):
+#         global to_be_overtime
+#         while not self.event.is_set():
+#             self.event.wait(1)
+#             if (datetime.utcnow() + timedelta(seconds=1)).second in to_be_overtime:
+#                 self.thread()
+#
+# # Auto_Buyer.fun_timer()
+# timer = Auto_Buyer()
+# # timer.start()
