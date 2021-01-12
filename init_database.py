@@ -434,6 +434,7 @@ def add_info():
 
 if __name__ == "__main__":
     drop_db()
+    print("1111111111111")
     init_db()
     bookdb = BookDB(large=False)
     bookdb.send_info()

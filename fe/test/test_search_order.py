@@ -40,24 +40,16 @@ class TestSearchOrder:
 
             paystatus = random.randint(0, 3)
             if (paystatus != 3):  # 3：未付款
-                code = self.buyer.payment(self.store_id)
+                code = self.buyer.payment(self.order_id)
                 assert code == 200
                 if (paystatus != 0):  # 0：未发货；1：已发货
                     code = self.seller.send_books(self.seller_id, self.order_id)
                     assert code == 200
                     if (paystatus == 2):  # 2：已收货
-                        code = self.buyer.receive_book(self.buyer_id, self.order_id)
+                        code = self.buyer.receive_books(self.buyer_id, self.order_id)
                         assert code == 200
         code = self.buyer.search_order()
         assert code == 200
-
-    # def close_paid(self):
-    #     code = self.buyer.add_funds(self.total_price)
-    #     assert code == 200
-    #     code = self.buyer.payment(self.order_id)
-    #     assert code == 200
-    #     code = self.buyer.close_order(self.order_id)
-    #     assert code == 200
 
     def test_authorization_error(self):
         self.buyer.password = self.buyer.password + "_x"

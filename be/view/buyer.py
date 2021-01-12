@@ -42,6 +42,16 @@ def add_funds():
     return jsonify({"message": message}), code
 
 
+@bp_buyer.route("/receive_books", methods=["POST"])
+def sreceive_books():
+    user_id: str = request.json.get("buyer_id")
+    order_id: str = request.json.get("order_id")
+
+    b = Buyer()
+    code, message = b.receive_books(user_id, order_id)
+    return jsonify({"message": message}), code
+
+
 @bp_buyer.route("/close_order", methods=["POST"])
 def close_order():
     user_id: str = request.json.get("user_id")
