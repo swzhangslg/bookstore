@@ -61,7 +61,7 @@ class Player():
         if cursor is None:
             return error.error_authorization_fail()
         db_token = cursor.token
-        print('sss')
+        # print('sss')
         hex_str = r"\x" + bytes(token, encoding='utf-8').hex()
         if db_token != token and db_token != hex_str:
             return error.error_authorization_fail()

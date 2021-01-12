@@ -285,32 +285,3 @@ def auto_run():
     t.start()
     t.cancel()
     
-
-# to_be_overtime = {}
-#
-# def overtime_append(key, value):
-#     global to_be_overtime
-#     if key in to_be_overtime:
-#         to_be_overtime[key].append(value)
-#     else:
-#         to_be_overtime[key] = [value]
-#
-#
-# class Auto_Buyer(threading.Thread):
-#     def __init__(self):
-#         threading.Thread.__init__(self)
-#         self.event = threading.Event()
-#
-#     def thread(self):
-#         Buyer.check_order(to_be_overtime[(datetime.utcnow() + timedelta(seconds=1)).second])
-#
-#     def run(self):
-#         global to_be_overtime
-#         while not self.event.is_set():
-#             self.event.wait(1)
-#             if (datetime.utcnow() + timedelta(seconds=1)).second in to_be_overtime:
-#                 self.thread()
-#
-# # Auto_Buyer.fun_timer()
-# timer = Auto_Buyer()
-# # timer.start()
