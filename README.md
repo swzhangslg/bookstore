@@ -29,6 +29,34 @@ bookstore
   |-- ....
 ```
 
+## 安装配置
+
+安装python
+
+安装依赖
+
+```
+pip install -r requirements.txt
+```
+
+安装postgresql数据库，并建库“bookstore”
+
+初始化数据库
+
+```
+python init_database.py
+```
+
+执行测试
+
+```
+bash script/test.sh
+```
+
+吞吐量与延迟测试：先启动app，再运行run.py
+
+
+
 ## 第一部分 数据库设计
 
 ![](./pictures/er.png)
@@ -36,67 +64,80 @@ bookstore
 ### E-R图
 
 1. 实体类和子类
+   
    实体类：用户、商铺、订单和书籍。
+   
    用户的子类：买家和卖家。
+   
    订单的子类：订单详情。
+   
 2. 属性
    用户包含：唯一属性user_id，单值属性密码、余额、终端和token（登陆的用户token不会重复，未登录的用户token为空）。
+
    订单包含：唯一属性order_id，单值属性订单应付款金额和订单创建时间、状态属性（0为已付款，1为已发货，2为已收货, 3为已下单未付款,4为交易关闭）。
    店铺包含：唯一属性store_id。
+
    书籍包含：唯一属性book_id，单值属性标题、作者、出版商、isbn号、原价等。
+
 3. 联系
+
    买家和订单：一个买家可以对应多笔订单，但一笔订单只能对应一个买家。
+
    卖家和订单：一个卖家可以对应多笔订单，但一笔订单只能对应一个卖家。
+
    卖家和商铺：一个卖家可以拥有多个商铺，但一家商铺只能对应一个卖家。
+
    商铺和书籍：一家商铺可以存有多款书籍，一款书也可以被多家商铺存有。
+
    订单和书籍：一个订单可以购买多款书籍，一款书也可以被多笔订单所购买。
+
    订单和商铺：一家商铺可以拥有多笔订单，但一笔订单只能对应一家商铺。
 
 ### 关系模式和索引设计
 
-**用户表**
+**用户表(user)**
 
 | user_id                                                      | password | balance | token  | terminal |
 | ------------------------------------------------------------ | -------- | ------- | ------ | -------- |
 | String(primary_key)                                          | String   | Integer | String | String   |
 | user_id是主键，通过user_id进行查找，例如登录时查看密码是否正确，用户充值时查看还剩多少余额。设计满足第三范式。 |          |         |        |          |
 
-**用户和商铺关系表**
+**用户和商铺关系表(store)**
 
 | store_id                                                     | user_id             |
 | ------------------------------------------------------------ | ------------------- |
 | String(primary_key)                                          | String(Foreign Key) |
 | store_id是主键，user_id作为外键，加快商家查看店铺操作的速度。满足第三范式。 |                     |
 
-**商铺详情表**
+**商铺详情表(store_detail)**
 
 | store_id                                                     | book_id                          | stock_level | price   |
 | ------------------------------------------------------------ | -------------------------------- | ----------- | ------- |
 | String(primary_key, Foreign Key)                             | String(primary_key, Foreign Key) | Integer     | Integer |
 | store_id和book_id组成联合主键，对store_id和book_id都作为外键，加快搜索时根据书找到对应的店铺和根据店铺找到店铺内的书。满足第三范式。 |                                  |             |         |
 
-**书籍表**
+**书籍表(book)**
 
 | book_id                       | title  | author | publisher | ...  | original_price | picture     |
 | ----------------------------- | ------ | ------ | --------- | ---- | -------------- | ----------- |
 | String(primary_key)           | String | String | String    | ...  | Integer        | LargeBinary |
 | book_id是主键。满足第三范式。 |        |        |           |      |                |             |
 
-**订单表**
+**订单表(order)**
 
 | order_id                                                  | user_id             | store_id            | paytime  | status  |
 | --------------------------------------------------------- | ------------------- | ------------------- | -------- | ------- |
 | String(primary_key)                                       | String(Foreign Key) | String(Foreign Key) | DateTime | Integer |
 | order_id是主键，user_id和store_id作为外键。满足第三范式。 |                     |                     |          |         |
 
-**订单详情表**
+**订单详情表(order_detail)**
 
 | order_id                                                     | book_id                          | count   |
 | ------------------------------------------------------------ | -------------------------------- | ------- |
 | String(primary_key)                                          | String(primary_key, Foreign Key) | Integer |
 | order_id和book_id组成联合主键，由于订单和书本是多对多关系，因此我们需要建立一张额外的订单详情表。满足第三范式。 |                                  |         |
 
-**待付款订单表**
+**待付款订单表(order_to_pay)**
 
 | order_id                                                     | user_id             | store_id            | paytime  |
 | ------------------------------------------------------------ | ------------------- | ------------------- | -------- |
@@ -277,9 +318,9 @@ github仓库：[swzhangslg/bookstore (github.com)](https://github.com/swzhangslg
 
 合作开发，每位成员都是项目的合作者。每个人建立自己的分支，将项目克隆到本地。
 
-![image-20210112202734688](./pictures/image-20210112202734688.png)
+![image-20210112202734688](./pictures/s1.png)
 
-![image-20210112192711765](./pictures/image-20210112192711765.png)
+![image-20210112192711765](./pictures/s2.png)
 
 - 个人控制：
 
@@ -291,7 +332,7 @@ github仓库：[swzhangslg/bookstore (github.com)](https://github.com/swzhangslg
 
 项目开发pull request记录：
 
-![image-20210112202802731](./pictures/image-20210112202802731.png)
+![image-20210112202802731](./pictures/s3.png)
 
 ### 持续集成
 
