@@ -26,6 +26,7 @@ env:
   - PGPORT=5432
 # Push the results back to codecov
 after_success:
+  - cat logger.log
   - coverage combine
   - coverage report
   - codecov
