@@ -15,7 +15,7 @@ import simplejson as json
 import jieba.analyse
 
 Base = declarative_base()
-engine = create_engine('postgresql://postgres:111111@localhost:5432/bookstore')
+engine = create_engine('postgresql://postgres:811157@localhost:5432/bookstore')
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 

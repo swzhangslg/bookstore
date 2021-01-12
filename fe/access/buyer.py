@@ -42,7 +42,10 @@ class Buyer:
         return r.status_code
 
     def receive_books(self, buyer_id: str, order_id: str):
-        json = {"user_id": buyer_id, "order_id": order_id}
+        json = {
+            "buyer_id": buyer_id,
+            "order_id": order_id
+        }
         url = urljoin(self.url_prefix, "receive_books")
         headers = {"token": self.token}
         r = requests.post(url, headers=headers, json=json)
@@ -58,6 +61,16 @@ class Buyer:
     def search_order(self):
         json = {"user_id": self.user_id, "password": self.password}
         url = urljoin(self.url_prefix, "search_order")
+        headers = {"token": self.token}
+        r = requests.post(url, headers=headers, json=json)
+        return r.status_code
+        
+    def receive_books(self,buyer_id: str, order_id: str):
+        json = {
+            "buyer_id": buyer_id,
+            "order_id": order_id
+        }
+        url = urljoin(self.url_prefix, "receive_books")
         headers = {"token": self.token}
         r = requests.post(url, headers=headers, json=json)
         return r.status_code
