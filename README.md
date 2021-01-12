@@ -1,6 +1,6 @@
 # bookstore期末作业报告
 
-[![Build Status](https://travis-ci.com/swzhangslg/bookstore.svg?branch=master)](https://travis-ci.com/swzhangslg/bookstore)  [![codecov](https://codecov.io/gh/swzhangslg/bookstore/branch/master/graph/badge.svg?token=IF9UST4dK6)](https://codecov.io/gh/swzhangslg/bookstore)
+[![Build Status](https://travis-ci.com/swzhangslg/bookstore.svg?branch=master)](https://travis-ci.com/swzhangslg/bookstore)   [![codecov](https://codecov.io/gh/swzhangslg/bookstore/branch/master/graph/badge.svg?token=IF9UST4dK6)](https://codecov.io/gh/swzhangslg/bookstore)
 
 ## 项目目录结构
 
@@ -20,7 +20,6 @@ bookstore
             |-- book.db             sqlite 数据库(book.db，较少量的测试数据)
             |-- scraper.py          从豆瓣爬取的图书信息数据
         |-- test                    功能性及覆盖率测试
-        	|-- htmlcov    
         |-- conf.py                 测试参数
         |-- conftest.py             pytest初始化配置
         |-- ...                      
@@ -31,6 +30,8 @@ bookstore
 ```
 
 ## 第一部分 数据库设计
+
+![](./pictures/er.png)
 
 ### E-R图
 
@@ -291,4 +292,14 @@ github仓库：[swzhangslg/bookstore (github.com)](https://github.com/swzhangslg
 项目开发pull request记录：
 
 ![image-20210112202802731](./pictures/image-20210112202802731.png)
+
+### 持续集成
+
+每次commit后立刻进行测试，利用Travis与Codecov，显示测试是否通过以及覆盖率，点击文件头图标连接可查看细节：
+
+![](./pictures/t1.png)
+
+![](./pictures/t2.png)
+
+
 
