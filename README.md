@@ -299,6 +299,8 @@ bash script/test.sh
 
 ### 测试及代码覆盖率
 
+**可点击标题下方图标以查看具体测试结果**
+
 pytest测试--57个test全部passed
 
 ![image-20210112233837732](./pictures/t3.png)
