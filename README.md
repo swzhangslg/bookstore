@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.com/swzhangslg/bookstore.svg?branch=master)](https://travis-ci.com/swzhangslg/bookstore)   [![codecov](https://codecov.io/gh/swzhangslg/bookstore/branch/master/graph/badge.svg?token=IF9UST4dK6)](https://codecov.io/gh/swzhangslg/bookstore)
 
+查看具体测试结果可直接点击图标
+
 ## 项目目录结构
 
 ```
@@ -313,7 +315,10 @@ pytest测试--57个test全部passed
 
 ![image-20210112235410610](./pictures/2.png)
 
+
+
 延迟：0.0254秒/笔
+
 吞吐量：19156笔/秒
 
 ## 第四部分 分工及版本控制
