@@ -23,7 +23,7 @@ bookstore
         |-- conf.py                 测试参数
         |-- conftest.py             pytest初始化配置
         |-- ...                      
- |-- init_database                  初始化数据库的文件
+ |-- init_database.py               初始化数据库的文件
  |-- app.py                         启动flask                     
  |-- script
   |-- ....
