@@ -301,7 +301,7 @@ bash script/test.sh
 
 pytest测试--57个test全部passed
 
-![image-20210112233837732](./pictures/image-20210112233837732.png)
+![image-20210112233837732](./pictures/t3.png)
 
 代码覆盖率--96%
 
